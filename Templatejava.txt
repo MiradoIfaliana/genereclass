@@ -1,0 +1,14 @@
+package <package>;
+<library>import <lib>;</library>
+public class <Nameclass>{
+
+<field>    <typefield> <namefield>; </field>
+    public <Nameclass>(){}
+
+<getsetfield>    public <typefield> get<Namefield>(){
+        return this.<namefield>;
+    }
+    public void set<Namefield>(<typefield> <namefield>){
+        this.<namefield>=<namefield>;
+    }</getsetfield>
+}

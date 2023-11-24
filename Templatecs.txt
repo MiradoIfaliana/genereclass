@@ -1,0 +1,7 @@
+namespace <package>;
+<library>using <lib>; </library>
+public class <Nameclass>{
+
+<field>    public <typefield> <namefield> { get;set; }</field>
+    public <Nameclass>(){}
+    }
