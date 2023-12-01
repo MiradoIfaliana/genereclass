@@ -175,8 +175,8 @@ public class Service
                 nameAndLib[1]="java.sql.Date";
                 break;
             case Types.TIME:
-                nameAndLib[0] = "LocalTime";
-                nameAndLib[1] = "java.time.LocalTime";
+                nameAndLib[0] = "Time";
+                nameAndLib[1] = "java.sql.Time";
                 break;
             case Types.TIMESTAMP:
                 nameAndLib[0] = "LocalDateTime";
@@ -209,21 +209,23 @@ public class Service
             typeForGenere[0]="TABLE";
         }else{ for(int i=0;i<typeForGenere.length;i++){ typeForGenere[i]=typeForGenere[i].toUpperCase(); } }
         ResultSet table =metaData.getTables(this.databasename, "public", null, typeForGenere);
+        //ResultSet table = metaData.getFunctions(this.databasename, "public", null); ---FUNCTION
         String[] tabsinfo=null;
         Vector<String[]> vTab=new Vector<String[]>(); 
         while (table.next()) {
                            // Faites quelque chose avec les informations récupérées
-                System.out.print("Catalogue : " + table.getString("TABLE_CAT"));
-                System.out.print("  Schéma : " + table.getString("TABLE_SCHEM"));
-                System.out.print("  Nom de la table : " + table.getString("TABLE_NAME"));
-                System.out.print("  Type de table : " + table.getString("TABLE_TYPE"));
-                System.out.print("  Remarques : " + table.getString("REMARKS")+"\n");
-                System.out.print("----------------------");
+                // System.out.print("Catalogue : " + table.getString("TABLE_CAT"));
+                // System.out.print("  Schéma : " + table.getString("TABLE_SCHEM"));
+                // System.out.print("  Nom de la table : " + table.getString("TABLE_NAME"));
+                // System.out.print("  Type de table : " + table.getString("TABLE_TYPE"));
+                // System.out.print("  Remarques : " + table.getString("REMARKS")+"\n");
+                // System.out.print("----------------------");
 
             tabsinfo=new String[3];
             tabsinfo[0]=table.getString("TABLE_NAME");
             tabsinfo[1]=table.getString("TABLE_TYPE");
             tabsinfo[2]=table.getString("TABLE_SCHEM");
+            //tabsinfo[0]=table.getString("FUNCTION_NAME");//---FUNCTION
             vTab.add(tabsinfo);
          }
         table.close();
@@ -232,6 +234,7 @@ public class Service
   //String nametable, String columnname, String columntype, String columntechtype, String libimport
     public Vector<DetailTable> infotable(DatabaseMetaData metaData,String tablename)throws Exception{
             ResultSet columns = metaData.getColumns(null, null, tablename, null);
+            //ResultSet columns = metaData.getProcedureColumns(null, null, tablename, null); //FUNCTION
             Vector<DetailTable> vDet=new Vector<DetailTable>();
             DetailTable detailTable=null;
             Vector<String> vlib=new Vector<String>();

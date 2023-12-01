@@ -1,21 +1,21 @@
 package main;
+import java.io.File;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.Time;
 
 import javax.swing.text.View;
 
 import connect.*;
 public class Affiche {
-
     public static void main(String[] args)throws Exception{
+        Connect connect=new Connect("./config.xml");
+        Connection connection=connect.getConnection();
         String []types={"Table","view"};
-        Service service=new Service("cs", "./classes", "object",types,"test",null);//ireo ihan no tena miasa aloha
-        Connection connection=new Connect().getConnectionPsql();
+        Service service=new Service("java", "./classes", "com.example.demo.Models",types,connect.getDatabasename(),null);//ireo ihan no tena miasa aloha
         //connection=new Connect().getConnectionMysql();
         service.createclassOfdatabase(connection);
-        
 
-        //System.out.println(input.substring(debutIndex+debut.length(), finIndex));
-        
     }
 }
 // CREATE TABLE exemple_tous_les_types_de_donnees (
