@@ -73,6 +73,7 @@ public class Connect
           if(content==null){ content=""; }
           return content;
     }
+    
     public void config()throws Exception{
         if(pathconfigxml==null){ throw new Exception("path du configuration xml"); }
         driver=getContentXml(pathconfigxml, "driver", 0);

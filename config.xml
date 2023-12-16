@@ -3,7 +3,7 @@
     <url>jdbc:postgresql://localhost:5432</url>
     <user>postgres</user>
     <password>motmirado</password>
-    <databasename>solaire</databasename>
+    <databasename>meuble</databasename>
 </database>
 <!-- <database>
     <driver>com.mysql.cj.jdbc.Driver</driver>

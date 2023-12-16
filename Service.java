@@ -27,15 +27,19 @@ public class Service
     String[] typeforgenere;
     String databasename;
     String databasetype;  
+    String pathtemplate;
+
+    
     public Service() {
     }
-    public Service(String extension, String topath, String packageclass, String[] typeforgenere, String databasename,String databasetype) {
+    public Service(String extension, String topath, String packageclass, String[] typeforgenere, String databasename,String databasetype,String pathtemplate) {
         setExtension(extension);
         setTopath(topath);
         setPackageclass(packageclass);
         setTypeforgenere(typeforgenere);
         setDatabasename(databasename);
         setDatabasetype(databasetype);
+        setPathtemplate(pathtemplate);
     }
     public String getExtension() {
         return extension;
@@ -72,6 +76,12 @@ public class Service
     }
     public void setDatabasetype(String databasetype) {
         this.databasetype = databasetype;
+    }
+    public String getPathtemplate() {
+        return pathtemplate;
+    }
+    public void setPathtemplate(String pathtemplate) {
+        this.pathtemplate = pathtemplate;
     }
     private static String[] getCsTypeNameAndLib(int sqlType) {
         String[] nameAndLib = new String[2];
@@ -265,7 +275,7 @@ public class Service
     }
 
     public String getTemplateOfExtension()throws Exception{
-            File fichier =  new File("./Template"+this.extension+".txt");
+            File fichier =  new File(this.pathtemplate);
             FileReader fileReader=new FileReader(fichier);
             BufferedReader bufferedReader=new BufferedReader(fileReader);
             String contenu="";
@@ -273,8 +283,12 @@ public class Service
             while( (line=bufferedReader.readLine())!=null){
                 contenu=contenu+line+"\n";
             }
+            int index1=contenu.indexOf("<"+this.extension+">")+("<"+this.extension+">").length();
+            int index2=contenu.indexOf("</"+this.extension+">");
             bufferedReader.close();
             fileReader.close();
+            contenu= contenu.substring(index1, index2);
+            if(contenu.substring(0,2).contains("\n")==true){ contenu=contenu.substring(1); }
             return contenu;
             //contenu=contenu.replaceAll("<Nameclass>", "Article");
     }
@@ -350,58 +364,58 @@ public class Service
         }
     }
 
-    // public void createclassbynomtable(DatabaseMetaData metaData ,String tablename)throws Exception{
-    //     DetailTable[] detailTable=infotable( metaData , tablename);
-    //     String nametable=tablename.substring(0,1).toUpperCase()+tablename.substring(1,tablename.length());
-    //     String tabulation="    ";
-    //     if(detailTable!=null){
-    //         File fichier = new File(this.topath+nametable+"."+this.extension);
-    //         if (!fichier.exists()) {
-    //             fichier.createNewFile();
-    //         }
-    //         FileWriter fileWriter = new FileWriter(fichier);
-    //         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-    //         String packag="";
-    //         if(this.packageclass!=null){
-    //             packag="package "+this.packageclass+";\n";
-    //         }
-    //         String libs="";
-    //         String declarclass="public class "+nametable+"{\n";
-    //         String constructor=tabulation+"public "+nametable+"(){}\n";
-    //         String field="";
-    //         String getset="";
+    public String createorreplaceIfExist(String codecontenu){
+        int index1=codecontenu.indexOf(" class ");
+        int index2=index1+" class ".length()-1;
+        index2=codecontenu.substring(index2).indexOf("{")+1;
+        Vector<String> attribu=new Vector<String>();
+        String contenu=codecontenu.substring(index1, index2);
+        return "";
+    }
 
-    //         String nametmp="";
-    //         for(int i=0;i<detailTable.length;i++){
-    //             //import lib
-    //             if(detailTable[i].getLibimport()!=null){
-    //                 libs+="import "+detailTable[i].getLibimport()+";\n";
-    //             }
-    //             nametmp=detailTable[i].getColumnname();
-    //             //field
-    //             field+=tabulation+detailTable[i].getColumntechtype()+" "+nametmp+";\n";
-    //             //get
-    //             getset+=tabulation+"public "+detailTable[i].getColumntechtype()+" get"+nametmp.substring(0,1).toUpperCase()+nametmp.substring(1,nametmp.length())+"(){\n";
-    //             getset+=tabulation+tabulation+"return this."+nametmp+";\n"+tabulation+"}\n";
-    //             //set
-    //             getset+=tabulation+"public void set"+nametmp.substring(0,1).toUpperCase()+nametmp.substring(1,nametmp.length())+"("+detailTable[i].getColumntechtype()+" "+nametmp+"){\n";
-    //             getset+=tabulation+tabulation+"this."+nametmp+"="+nametmp+";\n"+tabulation+"}\n";
-    //         }
-    //         //ecriture
-    //         bufferedWriter.write(packag+libs+declarclass+field+constructor+getset+"}\n");
-    //         bufferedWriter.close();
-    //         fileWriter.close();
-    //     }
-
-    // }
-
-    // public void createclassOfdatabase(Connection connection)throws Exception{
-    //     DatabaseMetaData metaData=connection.getMetaData();
-    //     Vector<String[]> vinfotab=this.getTablesInfoOfDatebase(metaData, this.typeforgenere);
-    //     String[] infotab=null;
-    //     for(int i=0;i<vinfotab.size();i++){
-    //         infotab=vinfotab.elementAt(i);//[0]=tablename,[1]=tabletype,[2]=tableschem
-    //         createclassbynomtable(metaData,infotab[0]);
-    //     }
-    // }
+    public String getCodeStringClassByTablename2(DatabaseMetaData metaData,String tablename,String lastcode)throws Exception{
+        Vector<DetailTable> vDetailTables=infotable(metaData, tablename);
+        String template=getTemplateOfExtension();
+        String classname=toUpperCaseFirst(tablename);
+        template=template.replaceAll("<package>", this.packageclass);//
+        template=template.replaceAll("<Nameclass>", classname);//
+        DetailTable detailTable=null;
+        String libraryTemplate=getStringIn(template, "<library>", "</library>");
+        String library="";
+        String fieldTemplate=getStringIn(template, "<field>", "</field>");
+        String field="";
+        String getsetfieldTemplate=getStringIn(template, "<getsetfield>", "</getsetfield>");
+        String getsetfield="";
+        String strtemp="";
+        for(int i=0;i<vDetailTables.size();i++){
+            detailTable=vDetailTables.elementAt(i);
+            if(detailTable.getLibimport()!=null){ 
+                strtemp=libraryTemplate.replaceAll("<lib>", detailTable.getLibimport());
+                if(lastcode.contains(strtemp)==false){ //raha efa misy
+                    library+=strtemp+"\n";
+                }
+            }
+            strtemp=fieldTemplate.replaceAll("<typefield>",detailTable.getColumntechtype()).replaceAll("<namefield>", detailTable.getColumnname());
+            if(lastcode.contains(strtemp)==false){ //raha efa misy
+                field+=strtemp+"\n";
+            }
+            getsetfield+=getsetfieldTemplate.replaceAll("<typefield>", detailTable.getColumntechtype()).replaceAll("<Namefield>", toUpperCaseFirst(detailTable.getColumnname()) ).replaceAll("<namefield>", detailTable.getColumnname())+"\n";
+        }
+        int indexdebut=template.indexOf("<library>");
+        int indexfin=template.indexOf("</library>"); //remplacena le eo ampovoany
+        if(indexdebut!=-1 && indexfin!=-1){ 
+            template=template.substring(0,indexdebut)+library+template.substring(indexfin+"</library>".length(), template.length());
+        }
+        indexdebut=template.indexOf("<field>");
+        indexfin=template.indexOf("</field>"); //remplacena le eo ampovoany
+        if(indexdebut!=-1 && indexfin!=-1){ 
+            template=template.substring(0,indexdebut)+field+template.substring(indexfin+"</field>".length(), template.length());
+        }
+        indexdebut=template.indexOf("<getsetfield>");
+        indexfin=template.indexOf("</getsetfield>"); //remplacena le eo ampovoany
+        if(indexdebut!=-1 && indexfin!=-1){ 
+            template=template.substring(0,indexdebut)+getsetfield+template.substring(indexfin+"</getsetfield>".length(), template.length());
+        }
+        return template;
+    } 
 }
