@@ -18,6 +18,9 @@ import java.time.format.DateTimeFormatter;
 
 import java.nio.file.Files;
 import java.io.IOException;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class Service
 { 
@@ -28,11 +31,12 @@ public class Service
     String databasename;
     String databasetype;  
     String pathtemplate;
+    String pathClassvariable;
 
     
     public Service() {
     }
-    public Service(String extension, String topath, String packageclass, String[] typeforgenere, String databasename,String databasetype,String pathtemplate) {
+    public Service(String extension, String topath, String packageclass, String[] typeforgenere, String databasename,String databasetype,String pathtemplate,String pathClassvariable) {
         setExtension(extension);
         setTopath(topath);
         setPackageclass(packageclass);
@@ -40,6 +44,7 @@ public class Service
         setDatabasename(databasename);
         setDatabasetype(databasetype);
         setPathtemplate(pathtemplate);
+        setPathClassvariable(pathClassvariable);
     }
     public String getExtension() {
         return extension;
@@ -82,6 +87,12 @@ public class Service
     }
     public void setPathtemplate(String pathtemplate) {
         this.pathtemplate = pathtemplate;
+    }
+    public String getPathClassvariable() {
+        return pathClassvariable;
+    }
+    public void setPathClassvariable(String pathClassvariable) {
+        this.pathClassvariable = pathClassvariable;
     }
     private static String[] getCsTypeNameAndLib(int sqlType) {
         String[] nameAndLib = new String[2];
@@ -273,24 +284,51 @@ public class Service
             columns.close();
             return vDet;
     }
-
+    public DetailClass getDetailClassByExtension()throws Exception{
+        String jsonFilePath = this.pathClassvariable;
+        try{
+            FileReader reader = new FileReader(jsonFilePath);
+            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+            // Récupérer la partie du JSON
+            JsonObject dotnetObject = jsonObject.getAsJsonObject(this.extension);//ex :"cs"--->"cs":{ classvariable }
+            Gson gson = new Gson();
+            DetailClass detailClass = gson.fromJson(dotnetObject, DetailClass.class);
+            reader.close();
+            return detailClass;
+        }catch(IOException io){throw io;}
+        catch(Exception ex){ throw ex;}
+    }
+       
+    public String getTemplate()throws Exception{
+        File fichier =  new File(this.pathtemplate);
+        FileReader fileReader=new FileReader(fichier);
+        BufferedReader bufferedReader=new BufferedReader(fileReader);
+        String contenu="";
+        String line="";
+        while( (line=bufferedReader.readLine())!=null){
+            contenu=contenu+line+"\n";
+        }
+        bufferedReader.close();
+        fileReader.close();
+        return contenu;
+        //contenu=contenu.replaceAll("<Nameclass>", "Article");
+    }
+    public String getCreateTemplate(String template,DetailClass detailClass)throws Exception{
+        String contenu=template+"";
+        Field[] fields=detailClass.getClass().getDeclaredFields();
+        for(int i=0;i<fields.length;i++){
+            fields[i].setAccessible(true);
+            //System.out.println(fields[i].getName());
+            contenu=contenu.replaceAll( "#"+fields[i].getName()+"#", fields[i].get(detailClass).toString());
+            fields[i].setAccessible(false);
+        }
+        return contenu;
+    }
     public String getTemplateOfExtension()throws Exception{
-            File fichier =  new File(this.pathtemplate);
-            FileReader fileReader=new FileReader(fichier);
-            BufferedReader bufferedReader=new BufferedReader(fileReader);
-            String contenu="";
-            String line="";
-            while( (line=bufferedReader.readLine())!=null){
-                contenu=contenu+line+"\n";
-            }
-            int index1=contenu.indexOf("<"+this.extension+">")+("<"+this.extension+">").length();
-            int index2=contenu.indexOf("</"+this.extension+">");
-            bufferedReader.close();
-            fileReader.close();
-            contenu= contenu.substring(index1, index2);
-            if(contenu.substring(0,2).contains("\n")==true){ contenu=contenu.substring(1); }
+            DetailClass detailClass=getDetailClassByExtension();
+            String template=getTemplate();
+            String contenu=getCreateTemplate(template, detailClass);
             return contenu;
-            //contenu=contenu.replaceAll("<Nameclass>", "Article");
     }
     public String getStringIn(String contenu,String strdebut,String strfin){
         int debutIndex = contenu.indexOf(strdebut);

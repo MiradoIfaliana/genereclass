@@ -12,19 +12,19 @@ import connect.*;
 public class Affiche {
     public static void main(String[] args)throws Exception{
         ////GENERATOR CLASS
-        // Connect connect=new Connect("./config.xml");
-        // Connection connection=connect.getConnection();
-        // String []types={"Table","view"};
-        // Service service=new Service("cs", "./generateclasses", "entite",types,connect.getDatabasename(),null,"./template/classe/Class.templ");//ireo ihan no tena miasa aloha
-        // //connection=new Connect().getConnectionMysql();
-        // service.createclassOfdatabase(connection);
-        // connection.close();
+        Connect connect=new Connect("./config.xml");
+        Connection connection=connect.getConnection();
+        String []types={"Table","view"};
+        Service service=new Service("java", "./generateclasses", "entite",types,connect.getDatabasename(),null,"./template/classe/Class.templ","./template/classe/classvariable.json");//ireo ihan no tena miasa aloha
+        //connection=new Connect().getConnectionMysql();
+        service.createclassOfdatabase(connection);
+        connection.close();
 
-        ////GENERATOR CONTROLLER
-        GenereController geController=new GenereController( "dotnet","./generatecontroller", "controller","./template/controller/Controller.templ","./template/controller/controllervariable.json");
-        //DetailController detailController=geController.getDetailControllerByTypeController();
-        geController.createclassbytablename("categorie");
-        //detailController.affiche();
+        // ////GENERATOR CONTROLLER
+        // GenereController geController=new GenereController( "dotnet","./generatecontroller", "controller","./template/controller/Controller.templ","./template/controller/controllervariable.json");
+        // //DetailController detailController=geController.getDetailControllerByTypeController();
+        // geController.createclassbytablename("categorie");
+        // //detailController.affiche();
 
     }
 }

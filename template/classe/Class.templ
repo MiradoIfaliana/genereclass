@@ -1,31 +1,8 @@
-<cs>
-namespace <package>;
-<library>using <lib>; </library>
-public class <Nameclass>{
-
-<field>    <typefield> <namefield></field>
-    public <Nameclass>(){}
-
-<getsetfield>    public <typefield> <Namefield>{ get => this.<namefield> ; set => this.<namefield> = value; }</getsetfield>
-}
-</cs>
-
-<java>
-package <package>;
-<library>import <lib>;</library>
-public class <Nameclass>{
-
-<field>    <typefield> <namefield>; </field>
-    public <Nameclass>(){}
-
-<getsetfield>    public <typefield> get<Namefield>(){
-        return this.<namefield>;
-    }
-    public void set<Namefield>(<typefield> <namefield>){
-        this.<namefield>=<namefield>;
-    }</getsetfield>
-}
-</java>
-
-<otherlanguage>
-</otherlanguage>
+#packagekey# <package>#endline#
+<library>#importkey# <lib>#endline#</library>
+public class <Nameclass>#bracketopen#
+<field>    <typefield> <namefield>#endline# </field>
+    public <Nameclass>()#bracketopen# #bracketclose#
+    
+<getsetfield>    #getset#</getsetfield>
+#bracketclose#

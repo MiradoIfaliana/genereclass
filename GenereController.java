@@ -22,8 +22,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import connect.DetailController;
-
 public class GenereController
 { 
     String typeController;
