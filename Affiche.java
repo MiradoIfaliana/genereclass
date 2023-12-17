@@ -20,7 +20,7 @@ public class Affiche {
         service.createclassOfdatabase(connection);
         connection.close();
 
-        // ////GENERATOR CONTROLLER
+        ////GENERATOR CONTROLLER
         // GenereController geController=new GenereController( "dotnet","./generatecontroller", "controller","./template/controller/Controller.templ","./template/controller/controllervariable.json");
         // //DetailController detailController=geController.getDetailControllerByTypeController();
         // geController.createclassbytablename("categorie");
