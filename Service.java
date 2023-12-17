@@ -18,6 +18,9 @@ import java.time.format.DateTimeFormatter;
 
 import java.nio.file.Files;
 import java.io.IOException;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class Service
 { 
@@ -27,15 +30,21 @@ public class Service
     String[] typeforgenere;
     String databasename;
     String databasetype;  
+    String pathtemplate;
+    String pathClassvariable;
+
+    
     public Service() {
     }
-    public Service(String extension, String topath, String packageclass, String[] typeforgenere, String databasename,String databasetype) {
+    public Service(String extension, String topath, String packageclass, String[] typeforgenere, String databasename,String databasetype,String pathtemplate,String pathClassvariable) {
         setExtension(extension);
         setTopath(topath);
         setPackageclass(packageclass);
         setTypeforgenere(typeforgenere);
         setDatabasename(databasename);
         setDatabasetype(databasetype);
+        setPathtemplate(pathtemplate);
+        setPathClassvariable(pathClassvariable);
     }
     public String getExtension() {
         return extension;
@@ -72,6 +81,18 @@ public class Service
     }
     public void setDatabasetype(String databasetype) {
         this.databasetype = databasetype;
+    }
+    public String getPathtemplate() {
+        return pathtemplate;
+    }
+    public void setPathtemplate(String pathtemplate) {
+        this.pathtemplate = pathtemplate;
+    }
+    public String getPathClassvariable() {
+        return pathClassvariable;
+    }
+    public void setPathClassvariable(String pathClassvariable) {
+        this.pathClassvariable = pathClassvariable;
     }
     private static String[] getCsTypeNameAndLib(int sqlType) {
         String[] nameAndLib = new String[2];
@@ -175,8 +196,8 @@ public class Service
                 nameAndLib[1]="java.sql.Date";
                 break;
             case Types.TIME:
-                nameAndLib[0] = "LocalTime";
-                nameAndLib[1] = "java.time.LocalTime";
+                nameAndLib[0] = "Time";
+                nameAndLib[1] = "java.sql.Time";
                 break;
             case Types.TIMESTAMP:
                 nameAndLib[0] = "LocalDateTime";
@@ -209,21 +230,23 @@ public class Service
             typeForGenere[0]="TABLE";
         }else{ for(int i=0;i<typeForGenere.length;i++){ typeForGenere[i]=typeForGenere[i].toUpperCase(); } }
         ResultSet table =metaData.getTables(this.databasename, "public", null, typeForGenere);
+        //ResultSet table = metaData.getFunctions(this.databasename, "public", null); ---FUNCTION
         String[] tabsinfo=null;
         Vector<String[]> vTab=new Vector<String[]>(); 
         while (table.next()) {
                            // Faites quelque chose avec les informations récupérées
-                System.out.print("Catalogue : " + table.getString("TABLE_CAT"));
-                System.out.print("  Schéma : " + table.getString("TABLE_SCHEM"));
-                System.out.print("  Nom de la table : " + table.getString("TABLE_NAME"));
-                System.out.print("  Type de table : " + table.getString("TABLE_TYPE"));
-                System.out.print("  Remarques : " + table.getString("REMARKS")+"\n");
-                System.out.print("----------------------");
+                // System.out.print("Catalogue : " + table.getString("TABLE_CAT"));
+                // System.out.print("  Schéma : " + table.getString("TABLE_SCHEM"));
+                // System.out.print("  Nom de la table : " + table.getString("TABLE_NAME"));
+                // System.out.print("  Type de table : " + table.getString("TABLE_TYPE"));
+                // System.out.print("  Remarques : " + table.getString("REMARKS")+"\n");
+                // System.out.print("----------------------");
 
             tabsinfo=new String[3];
             tabsinfo[0]=table.getString("TABLE_NAME");
             tabsinfo[1]=table.getString("TABLE_TYPE");
             tabsinfo[2]=table.getString("TABLE_SCHEM");
+            //tabsinfo[0]=table.getString("FUNCTION_NAME");//---FUNCTION
             vTab.add(tabsinfo);
          }
         table.close();
@@ -232,6 +255,7 @@ public class Service
   //String nametable, String columnname, String columntype, String columntechtype, String libimport
     public Vector<DetailTable> infotable(DatabaseMetaData metaData,String tablename)throws Exception{
             ResultSet columns = metaData.getColumns(null, null, tablename, null);
+            //ResultSet columns = metaData.getProcedureColumns(null, null, tablename, null); //FUNCTION
             Vector<DetailTable> vDet=new Vector<DetailTable>();
             DetailTable detailTable=null;
             Vector<String> vlib=new Vector<String>();
@@ -260,20 +284,51 @@ public class Service
             columns.close();
             return vDet;
     }
-
+    public DetailClass getDetailClassByExtension()throws Exception{
+        String jsonFilePath = this.pathClassvariable;
+        try{
+            FileReader reader = new FileReader(jsonFilePath);
+            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+            // Récupérer la partie du JSON
+            JsonObject dotnetObject = jsonObject.getAsJsonObject(this.extension);//ex :"cs"--->"cs":{ classvariable }
+            Gson gson = new Gson();
+            DetailClass detailClass = gson.fromJson(dotnetObject, DetailClass.class);
+            reader.close();
+            return detailClass;
+        }catch(IOException io){throw io;}
+        catch(Exception ex){ throw ex;}
+    }
+       
+    public String getTemplate()throws Exception{
+        File fichier =  new File(this.pathtemplate);
+        FileReader fileReader=new FileReader(fichier);
+        BufferedReader bufferedReader=new BufferedReader(fileReader);
+        String contenu="";
+        String line="";
+        while( (line=bufferedReader.readLine())!=null){
+            contenu=contenu+line+"\n";
+        }
+        bufferedReader.close();
+        fileReader.close();
+        return contenu;
+        //contenu=contenu.replaceAll("<Nameclass>", "Article");
+    }
+    public String getCreateTemplate(String template,DetailClass detailClass)throws Exception{
+        String contenu=template+"";
+        Field[] fields=detailClass.getClass().getDeclaredFields();
+        for(int i=0;i<fields.length;i++){
+            fields[i].setAccessible(true);
+            //System.out.println(fields[i].getName());
+            contenu=contenu.replaceAll( "#"+fields[i].getName()+"#", fields[i].get(detailClass).toString());
+            fields[i].setAccessible(false);
+        }
+        return contenu;
+    }
     public String getTemplateOfExtension()throws Exception{
-            File fichier =  new File("./Template"+this.extension+".txt");
-            FileReader fileReader=new FileReader(fichier);
-            BufferedReader bufferedReader=new BufferedReader(fileReader);
-            String contenu="";
-            String line="";
-            while( (line=bufferedReader.readLine())!=null){
-                contenu=contenu+line+"\n";
-            }
-            bufferedReader.close();
-            fileReader.close();
+            DetailClass detailClass=getDetailClassByExtension();
+            String template=getTemplate();
+            String contenu=getCreateTemplate(template, detailClass);
             return contenu;
-            //contenu=contenu.replaceAll("<Nameclass>", "Article");
     }
     public String getStringIn(String contenu,String strdebut,String strfin){
         int debutIndex = contenu.indexOf(strdebut);
@@ -347,58 +402,58 @@ public class Service
         }
     }
 
-    // public void createclassbynomtable(DatabaseMetaData metaData ,String tablename)throws Exception{
-    //     DetailTable[] detailTable=infotable( metaData , tablename);
-    //     String nametable=tablename.substring(0,1).toUpperCase()+tablename.substring(1,tablename.length());
-    //     String tabulation="    ";
-    //     if(detailTable!=null){
-    //         File fichier = new File(this.topath+nametable+"."+this.extension);
-    //         if (!fichier.exists()) {
-    //             fichier.createNewFile();
-    //         }
-    //         FileWriter fileWriter = new FileWriter(fichier);
-    //         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-    //         String packag="";
-    //         if(this.packageclass!=null){
-    //             packag="package "+this.packageclass+";\n";
-    //         }
-    //         String libs="";
-    //         String declarclass="public class "+nametable+"{\n";
-    //         String constructor=tabulation+"public "+nametable+"(){}\n";
-    //         String field="";
-    //         String getset="";
+    public String createorreplaceIfExist(String codecontenu){
+        int index1=codecontenu.indexOf(" class ");
+        int index2=index1+" class ".length()-1;
+        index2=codecontenu.substring(index2).indexOf("{")+1;
+        Vector<String> attribu=new Vector<String>();
+        String contenu=codecontenu.substring(index1, index2);
+        return "";
+    }
 
-    //         String nametmp="";
-    //         for(int i=0;i<detailTable.length;i++){
-    //             //import lib
-    //             if(detailTable[i].getLibimport()!=null){
-    //                 libs+="import "+detailTable[i].getLibimport()+";\n";
-    //             }
-    //             nametmp=detailTable[i].getColumnname();
-    //             //field
-    //             field+=tabulation+detailTable[i].getColumntechtype()+" "+nametmp+";\n";
-    //             //get
-    //             getset+=tabulation+"public "+detailTable[i].getColumntechtype()+" get"+nametmp.substring(0,1).toUpperCase()+nametmp.substring(1,nametmp.length())+"(){\n";
-    //             getset+=tabulation+tabulation+"return this."+nametmp+";\n"+tabulation+"}\n";
-    //             //set
-    //             getset+=tabulation+"public void set"+nametmp.substring(0,1).toUpperCase()+nametmp.substring(1,nametmp.length())+"("+detailTable[i].getColumntechtype()+" "+nametmp+"){\n";
-    //             getset+=tabulation+tabulation+"this."+nametmp+"="+nametmp+";\n"+tabulation+"}\n";
-    //         }
-    //         //ecriture
-    //         bufferedWriter.write(packag+libs+declarclass+field+constructor+getset+"}\n");
-    //         bufferedWriter.close();
-    //         fileWriter.close();
-    //     }
-
-    // }
-
-    // public void createclassOfdatabase(Connection connection)throws Exception{
-    //     DatabaseMetaData metaData=connection.getMetaData();
-    //     Vector<String[]> vinfotab=this.getTablesInfoOfDatebase(metaData, this.typeforgenere);
-    //     String[] infotab=null;
-    //     for(int i=0;i<vinfotab.size();i++){
-    //         infotab=vinfotab.elementAt(i);//[0]=tablename,[1]=tabletype,[2]=tableschem
-    //         createclassbynomtable(metaData,infotab[0]);
-    //     }
-    // }
+    public String getCodeStringClassByTablename2(DatabaseMetaData metaData,String tablename,String lastcode)throws Exception{
+        Vector<DetailTable> vDetailTables=infotable(metaData, tablename);
+        String template=getTemplateOfExtension();
+        String classname=toUpperCaseFirst(tablename);
+        template=template.replaceAll("<package>", this.packageclass);//
+        template=template.replaceAll("<Nameclass>", classname);//
+        DetailTable detailTable=null;
+        String libraryTemplate=getStringIn(template, "<library>", "</library>");
+        String library="";
+        String fieldTemplate=getStringIn(template, "<field>", "</field>");
+        String field="";
+        String getsetfieldTemplate=getStringIn(template, "<getsetfield>", "</getsetfield>");
+        String getsetfield="";
+        String strtemp="";
+        for(int i=0;i<vDetailTables.size();i++){
+            detailTable=vDetailTables.elementAt(i);
+            if(detailTable.getLibimport()!=null){ 
+                strtemp=libraryTemplate.replaceAll("<lib>", detailTable.getLibimport());
+                if(lastcode.contains(strtemp)==false){ //raha efa misy
+                    library+=strtemp+"\n";
+                }
+            }
+            strtemp=fieldTemplate.replaceAll("<typefield>",detailTable.getColumntechtype()).replaceAll("<namefield>", detailTable.getColumnname());
+            if(lastcode.contains(strtemp)==false){ //raha efa misy
+                field+=strtemp+"\n";
+            }
+            getsetfield+=getsetfieldTemplate.replaceAll("<typefield>", detailTable.getColumntechtype()).replaceAll("<Namefield>", toUpperCaseFirst(detailTable.getColumnname()) ).replaceAll("<namefield>", detailTable.getColumnname())+"\n";
+        }
+        int indexdebut=template.indexOf("<library>");
+        int indexfin=template.indexOf("</library>"); //remplacena le eo ampovoany
+        if(indexdebut!=-1 && indexfin!=-1){ 
+            template=template.substring(0,indexdebut)+library+template.substring(indexfin+"</library>".length(), template.length());
+        }
+        indexdebut=template.indexOf("<field>");
+        indexfin=template.indexOf("</field>"); //remplacena le eo ampovoany
+        if(indexdebut!=-1 && indexfin!=-1){ 
+            template=template.substring(0,indexdebut)+field+template.substring(indexfin+"</field>".length(), template.length());
+        }
+        indexdebut=template.indexOf("<getsetfield>");
+        indexfin=template.indexOf("</getsetfield>"); //remplacena le eo ampovoany
+        if(indexdebut!=-1 && indexfin!=-1){ 
+            template=template.substring(0,indexdebut)+getsetfield+template.substring(indexfin+"</getsetfield>".length(), template.length());
+        }
+        return template;
+    } 
 }

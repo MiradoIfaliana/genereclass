@@ -1,0 +1,219 @@
+<springboot>
+package <package>;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+<library>import <lib>;</library>
+@RestController
+@RequestMapping("<RouteConttroler>")
+public class <NameController> {
+  
+    @<URLMethod>Mapping("/<NameEndPoint>")4
+    
+    public <TypeReturn> <NameMethode>() {
+        //return tableauEtudiants;
+        <ContenuCode>
+    }
+}
+</springboot>
+
+<dotnet>
+    private readonly ISampleService _sampleService;
+
+    public SampleController(ISampleService sampleService)
+    {
+        _sampleService = sampleService;
+    }
+
+    [HttpGet]
+    public IActionResult Get()
+    {
+        var items = _sampleService.GetAll();
+        return Ok(items);
+    }
+
+    [HttpGet("{id}")]
+    public IActionResult GetById(int id)
+    {
+        var item = _sampleService.GetById(id);
+        if (item == null)
+            return NotFound();
+
+        return Ok(item);
+    }
+
+    [HttpPost]
+    public IActionResult Post([FromBody] SampleModel model)
+    {
+        if (model == null)
+            return BadRequest();
+
+        _sampleService.Add(model);
+
+        return CreatedAtAction(nameof(GetById), new { id = model.Id }, model);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult Put(int id, [FromBody] SampleModel model)
+    {
+        if (model == null || id != model.Id)
+            return BadRequest();
+
+        _sampleService.Update(model);
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        var item = _sampleService.GetById(id);
+        if (item == null)
+            return NotFound();
+
+        _sampleService.Delete(id);
+
+        return NoContent();
+    }
+}
+[Route("api/[controller]")]
+[ApiController]
+public class SampleController : ControllerBase
+{
+    private readonly ISampleService _sampleService;
+
+    public SampleController(ISampleService sampleService)
+    {
+        _sampleService = sampleService;
+    }
+
+    [HttpGet]
+    public IActionResult Get([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+    {
+        var items = _sampleService.GetPaged(page, pageSize);
+        return Ok(items);
+    }
+}
+</dotnet>
+
+<crud>
+    <create>
+    [Http<URLMethod>("create<Type>s")]
+    public IActionResult Create(<paramaterI><Typeparamameter> <nameparameter></parameterI>)
+    {
+        <Type> <type> = new <Type>();
+        <Type>[] <type>s=<type>.<NameOfMethod>(<paramaterU><nameparameter></parameterU>);
+        return Ok(<type>s);
+    }
+    </create>
+
+    <read>
+    [Http<URLMethod>("read<Type>s")]
+    public IActionResult Read()
+    {
+        <Type> <type> = new <Type>();
+        <Type>[] <type>s=<type>.<NameOfMethod>();
+        return Ok(<type>s);
+    }
+    </read>
+    
+    <readById>
+    [Http<URLMethod>("read<Type>ById")]
+    public IActionResult ReadById(<paramaterI><Typeparamameter> <nameparameter></parameterI>)
+    {
+        <Type> <type> = new <Type>();
+        <type>.<Idname>=id;
+        <type> = <type>.<NameOfMethod>(<paramaterU><nameparameter></parameterU>);
+        return Ok(<type>);
+    }
+    </readById>
+
+    <update>
+    [Http<URLMethod>("update<Type>s")]
+    public IActionResult Update(<paramaterI><Typeparamameter> <nameparameter></parameterI>)
+    {
+        <Type> <type> = new <Type>();
+        <Type>[] <type>s=<type>.<NameOfMethod>(<paramaterU><nameparameter></parameterU>);
+        return Ok(<type>s);
+    }
+    </update>    
+
+    <delete>
+    [Http<URLMethod>("delete<Type>s")]
+    public IActionResult Delete(<paramaterI><Typeparamameter> <nameparameter></parameterI>)
+    {
+        <Type> <type> = new <Type>();
+        <Type>[] <type>s=<type>.<NameOfMethod>(<paramaterU><nameparameter></parameterU>);
+        return Ok(<type>s);
+    }
+    </delete>   
+</crud>
+
+
+<springboot>
+package <package>;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+<library>import <lib>;</library>
+@RestController
+@RequestMapping("<RouteConttroler>")
+public class <NameController> {
+  
+    @<URLMethod>Mapping("/<NameEndPoint>")4
+    
+    public <TypeReturn> <NameMethode>(<paramater>) {
+        //return tableauEtudiants;
+        <ContenuCode>
+    }
+}
+</springboot>
+
+<springboot>
+package <package>;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+<library>import <lib>;</library>
+@RestController
+@RequestMapping("<RouteConttroler>")
+public class <NameController> {
+  
+    @<URLMethod>Mapping("/<NameEndPoint>")4
+    
+    public <TypeReturn> <NameMethode>(<paramater>) {
+        //return tableauEtudiants;
+        <ContenuCode>
+    }
+}
+</springboot>
+
+<dotnet>
+namespace <package>;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+<library>using <lib>; </library>
+
+[ApiController]
+[Route("<RouteConttroler>")] //("api/[controller]")
+public class <Namecontroller> : ControllerBase
+{
+<endpoint>
+    [<annotationEndpoint>("<NameEndpoint>")]
+    public <TypeReturn> <NameMethode>(<parameters><Typeparamater> <parameter></parameters>)
+    {
+        <ContenuCode>
+        <return>
+    }
+<endpoint>
+}
+</dotnet>
