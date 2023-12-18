@@ -4,11 +4,10 @@
 #annotationController#
 #annotationRoute#
 #scopeController# class <Namecontroller> #extendskey# #classextends# #bracketopen# 
-
 <crud>
     <create>
     #annotationPost#
-    public #returnType# create<Typeclass>(#bodyAttribute# <TypeRequest> requestBody) #bracketopen# 
+    public #returnType# create<Typeclass>(#bodyAttribute# <TypeRequest> <nameparam>) #bracketopen# 
         <Typereturn> <variablereturn> #endline#
         return #returnkey# #endline#
     #bracketclose#
@@ -24,7 +23,7 @@
 
     <update>
     #annotationPut#
-    public #returnType# update<Typeclass>(#pathAttribute# #identifierType# id, #bodyAttribute# <TypeRequest> requestBody) #bracketopen#
+    public #returnType# update<Typeclass>(#pathAttribute# #identifierType# id, #bodyAttribute# <TypeRequest> <nameparam>) #bracketopen#
         <Typereturn> <variablereturn> #endline#
         return #returnkey# #endline#
     #bracketclose#

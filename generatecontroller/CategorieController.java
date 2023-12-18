@@ -1,13 +1,14 @@
 package controller;
 
+import org.springframework.http.ResponseEntity ;
+import org.springframework.web.bind.annotation.* ;
 
 @RestController
 @RequestMapping("/api/CategorieController")
 public class CategorieController   { 
 
-
     @PostMapping("/CreateCategorie")
-    public ResponseEntity<String> createCategorie(@RequestBody Categorie requestBody) { 
+    public ResponseEntity<String> createCategorie(@RequestBody Categorie categorie) { 
         String resultat ;
         return new ResponseEntity<>(resultat) ;
     }
@@ -19,7 +20,7 @@ public class CategorieController   {
     }
     
     @PutMapping("{id}")
-    public ResponseEntity<String> updateCategorie(@PathVariable Long id, @RequestBody Categorie requestBody) {
+    public ResponseEntity<String> updateCategorie(@PathVariable Long id, @RequestBody Categorie categorie) {
         String resultat ;
         return new ResponseEntity<>(resultat) ;
     }

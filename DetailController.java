@@ -27,6 +27,8 @@ public class DetailController
     String returnType;
     String returnkey;
     String identifierType;
+    String[] libraries;
+    String caracteres;
     public String getPackagekey() {
         return packagekey;
     }
@@ -165,16 +167,39 @@ public class DetailController
     public void setIdentifierType(String identifierType) {
         this.identifierType = identifierType;
     }
+    public String[] getLibraries() {
+        return libraries;
+    }
+    public void setLibraries(String[] libraries) {
+        this.libraries = libraries;
+    }  
+    public String getCaracteres() {
+        return caracteres;
+    }
+    public void setCaracteres(String caracteres) {
+        this.caracteres = caracteres;
+    }
     public void affiche()throws Exception{
         Field[] fields=this.getClass().getDeclaredFields();
         Object obj=null;
+        String[] strs=null;
         for(int i=0;i<fields.length;i++){
             fields[i].setAccessible(true);
             obj=fields[i].get(this);
-            System.out.println(fields[i].getName()+" :"+obj);
-            fields[i].setAccessible(false);
+            if(fields[i].getType().isArray()==true){
+               strs=(String[])obj;
+               System.out.print("\n"+fields[i].getName()+" :"+strs+":");
+               if(strs!=null){
+                    for(int j=0;j<strs.length;j++){
+                        System.out.print(strs[j]+",");
+                    }
+               }
+               System.out.println("\n");
+            }else{
+                System.out.println(fields[i].getName()+" :"+obj);
+                fields[i].setAccessible(false);
+            }
         }
     }
-    
     
 }

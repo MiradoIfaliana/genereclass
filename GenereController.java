@@ -122,15 +122,17 @@ public class GenereController
         }
         return contenu;
     }
-    public String getJustCodeCrud(String template,String className){
+    public String getJustCodeCrud(String template,String className,DetailController detailController){
         String mTemplate=template+"";
         String crud=getStringIn(mTemplate,"<crud>","</crud>");
+        String classLower=toLowerCaseFirst(className);
         crud=crud.replaceAll("<Typeclass>", className);
         //Create
         String create=getStringIn(crud,"<create>","</create>");
         create=create.replaceAll("<endpoint>", "/Create"+className);
-        create=create.replaceAll("<Typereturn>", "String");
+        create=create.replaceAll("<Typereturn>", detailController.getCaracteres());
         create=create.replaceAll("<TypeRequest>", className);
+        create=create.replaceAll("<nameparam>", classLower);
         create=create.replaceAll("<variablereturn>", "resultat");
         //Read
         String read=getStringIn(crud,"<read>","</read>");
@@ -140,13 +142,21 @@ public class GenereController
         //Update
         String update=getStringIn(crud,"<update>","</update>");
         update=update.replaceAll("<endpoint>", "/Update"+className);
-        update=update.replaceAll("<Typereturn>", "String");
+        update=update.replaceAll("<Typereturn>", detailController.getCaracteres());
         update=update.replaceAll("<TypeRequest>", className);
+        if(this.typeController.compareToIgnoreCase("sprint")==0){
+            update=update.replaceFirst("<nameparam>","id");
+            update=update.replaceFirst("<nameparam>",classLower);
+        }else{
+            update=update.replaceAll("<nameparam>",classLower);
+        }
+        update=update.replaceAll("<nameparam>", classLower);
         update=update.replaceAll("<variablereturn>", "resultat");
         //Delete
         String delete=getStringIn(crud,"<delete>","</delete>");
         delete=delete.replaceAll("<endpoint>", "/Delete"+className);
-        delete=delete.replaceAll("<Typereturn>", "String");
+        delete=delete.replaceAll("<nameparam>", "id");
+        delete=delete.replaceAll("<Typereturn>", detailController.getCaracteres());
         delete=delete.replaceAll("<variablereturn>", "resultat");
         String codeCrud=create+read+update+delete;
         return codeCrud;
@@ -155,13 +165,21 @@ public class GenereController
         String template=getTemplate();
         template=getCreateTemplate(template, detailController);
         template=template.replaceAll("<package>", this.packageclass);//package
-        int index1=template.indexOf("<library>");//lib
+        String libTemplate=getStringIn(template,"<library>","</library>");//lib
+        String lib="";
+        String[] libraries=detailController.getLibraries();
+        if(libraries!=null){
+            for(int i=0;i<libraries.length;i++){
+                lib+="\n"+libTemplate.replaceAll("<lib>",libraries[i]);
+            }
+        }
+        int index1=template.indexOf("<library>");
         int index2=template.indexOf("</library>")+"</library>".length();
-        template=template.substring(0, index1)+template.substring(index2); //pas d'importation pour le moment
+        template=template.substring(0, index1)+lib+template.substring(index2); //ajout importations
         String classNameUp=toUpperCaseFirst(className);//class name
         template=template.replaceAll("<routeController>","/api/"+classNameUp+"Controller");
         template=template.replaceAll( "<Namecontroller>" , classNameUp+"Controller");        
-        String crud=getJustCodeCrud(template, classNameUp);
+        String crud=getJustCodeCrud(template, classNameUp,detailController);
         index1=template.indexOf("<crud>");
         index2=template.indexOf("</crud>")+"</crud>".length();
         String contenu=template.substring(0, index1)+crud+template.substring(index2);

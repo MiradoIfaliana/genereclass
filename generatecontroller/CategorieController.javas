@@ -1,0 +1,37 @@
+package controller;
+
+import java.util.List ;
+
+
+
+public class CategorieController   { 
+
+    @RestApi
+    @MethodUrl(url="/CreateCategorie")
+    public List<String> createCategorie(@ParamName("categorie") Categorie categorie) { 
+        String resultat ;
+        return new List<resultat> ;
+    }
+    
+    @RestApi
+    @MethodUrl(url="/ReadCategorie")
+    public List<Categorie[]> readCategorie() { 
+        Categorie[] resultats ;
+        return new List<resultats> ;
+    }
+    
+    @RestApi
+    @MethodUrl(url="/UpdateCategorie")
+    public List<String> updateCategorie(@ParamName("id") int id, @ParamName("categorie") Categorie categorie) {
+        String resultat ;
+        return new List<resultat> ;
+    }
+    
+    @RestApi
+    @MethodUrl(url="/DeleteCategorie")
+    public List<String> deleteCategorie(@ParamName("id") int id) { 
+        String resultat ;
+        return new List<resultat> ;
+    }
+    
+}
