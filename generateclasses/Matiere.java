@@ -3,6 +3,7 @@ package entite;
 public class Matiere{
     int idmatiere; 
     String nommatiere; 
+    int idunite; 
 
     public Matiere(){ }
     
@@ -17,6 +18,12 @@ public class Matiere{
     }
     public void setNommatiere(String nommatiere){
         this.nommatiere=nommatiere;
+    }
+    public int getIdunite(){
+        return this.idunite;
+    }
+    public void setIdunite(int idunite){
+        this.idunite=idunite;
     }
 
 }

@@ -1,6 +1,7 @@
 package entite;
 
-public class Stylematiere_v{
+public class Stylematiere2_v{
+    int idmatierestyle; 
     int idstyle; 
     String nomstyle; 
     int idmatiere; 
@@ -8,8 +9,14 @@ public class Stylematiere_v{
     int idunite; 
     String unite; 
 
-    public Stylematiere_v(){ }
+    public Stylematiere2_v(){ }
     
+    public int getIdmatierestyle(){
+        return this.idmatierestyle;
+    }
+    public void setIdmatierestyle(int idmatierestyle){
+        this.idmatierestyle=idmatierestyle;
+    }
     public int getIdstyle(){
         return this.idstyle;
     }
