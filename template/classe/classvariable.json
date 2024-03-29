@@ -10,8 +10,16 @@
         "endline":";",
         "extension":"java",
         "extendskey":"extends",
-        "getset":"public <typefield> get<Namefield>(){\n        return this.<namefield>;\n    }\n    public void set<Namefield>(<typefield> <namefield>){\n        this.<namefield>=<namefield>;\n    }"
-
+        "getset":"public <typefield> get<Namefield>(){\n        return this.<namefield>;\n    }\n    public void set<Namefield>(<typefield> <namefield>){\n        this.<namefield>=<namefield>;\n    }",
+        "annotationClass":[],
+        "annotationPk":"",
+        "annotationField":[],
+        "libraries":[
+        ],
+        "encaplsulationfield":"",
+        "endlinefield":";",
+        "extendsclass":[]
+        
     },
     "cs":{
         "packagekey":"namespace",
@@ -24,6 +32,21 @@
         "endline":";",
         "extension":"cs",
         "extendskey":":",
-        "getset":"public <typefield> <Namefield>{ get => this.<namefield> ; set => this.<namefield> = value; }"
+        "getset":null,
+        
+        "annotationClass":[
+            "[Table(\"<nameclass>\")]"
+        ],
+        "annotationPk":"    [Key]",
+        "annotationField":[
+            "[Column(\"<namefield>\")]\n"
+        ],
+        "libraries":[
+            "System.ComponentModel.DataAnnotations",
+            "System.ComponentModel.DataAnnotations.Schema"
+        ],
+        "encaplsulationfield":"public",
+        "endlinefield":"{get; set;}",
+        "extendsclass":["MotherObj<<Nameclass>>"]
     }
 }

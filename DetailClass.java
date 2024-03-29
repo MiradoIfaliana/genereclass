@@ -15,6 +15,13 @@ public class DetailClass
     String extension;
     String extendskey;
     String getset;
+    String[] annotationClass;
+    String annotationPk;
+    String[] annotationField;
+    String[] libraries;
+    String encaplsulationfield;
+    String endlinefield;
+    String[] extendsclass;
     public String getPackagekey() {
         return packagekey;
     }
@@ -80,6 +87,48 @@ public class DetailClass
     }
     public void setGetset(String getset) {
         this.getset = getset;
+    }
+    public String[] getAnnotationClass() {
+        return annotationClass;
+    }
+    public void setAnnotationClass(String[] annotationClass) {
+        this.annotationClass = annotationClass;
+    }
+    public String getAnnotationPk() {
+        return annotationPk;
+    }
+    public void setAnnotationPk(String annotationPk) {
+        this.annotationPk = annotationPk;
+    }
+    public String[] getAnnotationField() {
+        return annotationField;
+    }
+    public void setAnnotationField(String[] annotationField) {
+        this.annotationField = annotationField;
+    }
+    public String[] getLibraries() {
+        return libraries;
+    }
+    public void setLibraries(String[] libraries) {
+        this.libraries = libraries;
+    }
+    public String getEncaplsulationfield() {
+        return encaplsulationfield;
+    }
+    public void setEncaplsulationfield(String encaplsulationfield) {
+        this.encaplsulationfield = encaplsulationfield;
+    }
+    public String getEndlinefield() {
+        return endlinefield;
+    }
+    public void setEndlinefield(String endlinefield) {
+        this.endlinefield = endlinefield;
+    }
+    public String[] getExtendsclass() {
+        return extendsclass;
+    }
+    public void setExtendsclass(String[] extendsclass) {
+        this.extendsclass = extendsclass;
     }
 
     

@@ -1,0 +1,52 @@
+<<entityname>> -----> le entity de la page
+<<Entityname>>
+
+<<pkchamp>> <</pkchamp>> ---> balise du champ
+<<typepk>>
+<<namepk>>
+<<a_namepk>>
+<<valuepk>>
+
+<<saveForm>> <</saveForm>>
+<<inputs>><</inputs>>
+
+<<selecttempl>> <</selecttempl>> --> la ou contient le template de select liste
+<<optiontempl>> <</optiontempl>> --> template d'option
+
+<<data-select>> --> le nom du variable du select
+<<namelabel>>
+<<Namelabel>> -->label champ
+<<name-select>>-->name valu's select
+<<field-value-option>> -->l'attribute pour valeur de l'option
+<<field-entity>>
+<<label-option>> --> nom de l'option
+
+<<inputtempl>><</inputtempl>> --> la ou contient le template de input
+<<name-input>> -->name du input
+
+<<head-table-templ>> <</head-table-templ>>--> template header table
+
+<<head-table>>-->pour mettre l'header de la table
+
+<<column-table-templ>> <</column-table-templ>>
+
+<<field-column-value>> --> le field qui contient la valeur du colonne
+
+<<Sousentityname>>
+<<sousentityname>>
+
+<<pagename>>
+<<Pagename>>
+<<lib_son>>
+<<lib_mom>>
+<<http>>
+<<host>>
+<<port>>
+
+<<instance-sousentityname>> <</instance-sousentityname>>
+
+<<templ-read-sousentity>> <</templ-read-sousentity>>
+
+<<templ-routepage>><</templ-routepage>>
+
+<<templ-importpage>><</templ-importpage>>

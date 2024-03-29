@@ -1,0 +1,47 @@
+<nav>
+    <img src="" alt="logo" class="rounded-logo" >
+
+    <a  (click)="clickmenu(0)" >CRUD</a>
+        <ul [ngClass]="{'active-menu': activemenu[0]}"  class="menu-mere">
+            <li><a href="categorie">Categorie</a></li>
+            <li><a href="client">Client</a></li>
+            <li><a href="dureestyle">Dureestyle</a></li>
+            <li><a href="fabrication">Fabrication</a></li>
+            <li><a href="foreigntab">Foreigntab</a></li>
+            <li><a href="matiere">Matiere</a></li>
+            <li><a href="matiereentre">Matiereentre</a></li>
+            <li><a href="matiereprix">Matiereprix</a></li>
+            <li><a href="matieresorti">Matieresorti</a></li>
+            <li><a href="matierestyle">Matierestyle</a></li>
+            <li><a href="nbouvrier">Nbouvrier</a></li>
+            <li><a href="origintab">Origintab</a></li>
+            <li><a href="ouvrier">Ouvrier</a></li>
+            <li><a href="ouvrierbesoin">Ouvrierbesoin</a></li>
+            <li><a href="ouvrierbesointaille">Ouvrierbesointaille</a></li>
+            <li><a href="personne">Personne</a></li>
+            <li><a href="postepersonne">Postepersonne</a></li>
+            <li><a href="prixvente">Prixvente</a></li>
+            <li><a href="profil">Profil</a></li>
+            <li><a href="profilborne">Profilborne</a></li>
+            <li><a href="profilupsalaire">Profilupsalaire</a></li>
+            <li><a href="quantitematiere">Quantitematiere</a></li>
+            <li><a href="salaire">Salaire</a></li>
+            <li><a href="style">Style</a></li>
+            <li><a href="taille">Taille</a></li>
+            <li><a href="unite">Unite</a></li>
+            <li><a href="vente">Vente</a></li>
+          
+        </ul>
+</nav>
+
+<header>
+    <ul>
+        <li><a href="/acceuil">Acceuil</a></li>
+    </ul>
+</header>
+
+<router-outlet />
+
+    <footer>
+        <p>&copy; 2024 S5 . Tous droits réservés.</p>
+    </footer>

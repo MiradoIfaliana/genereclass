@@ -1,0 +1,88 @@
+<section>
+    <h1>profilborne</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #profilborneForm="ngForm" (ngSubmit)="submitFormCreate(profilborneForm)" >
+            <h2>Save profilborne</h2>
+
+            <input type="hidden" id="idprofilborne" name="idprofilborne" [value]="0" ngModel/><br> 
+            <label for="profil">Profil:<br>
+                <select id="profil" name="idprofil" ngModel required >
+                        <option *ngFor="let profil of profils" [value]="profil.idprofil">{{ profil.nomprofil}}</option>
+                </select>
+            </label><br>
+            <label for="agemin">Agemin: </label><br>
+            <input type="text" id="agemin" name="agemin" ngModel/>
+            <br>
+            <label for="agemax">Agemax: </label><br>
+            <input type="text" id="agemax" name="agemax" ngModel/>
+            <br>
+            <label for="dateborne">Dateborne: </label><br>
+            <input type="datetime-local" id="dateborne" name="dateborne" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="profilborne" (ngSubmit)="submitFormUpdate()">
+            <h2>Update profilborne</h2>
+
+            <input type="hidden" id="idprofilborne" name="idprofilborne" [(ngModel)]="profilborne.idprofilborne"><br> 
+            <label for="profil">Profil:<br>
+                <select id="profil" name="idprofil" [(ngModel)]="profilborne.idprofil" required >
+                        <option *ngFor="let profil of profils" [value]="profil.idprofil">{{ profil.nomprofil}}</option>
+                </select>
+            </label><br>
+            <label for="agemin">Agemin: </label><br>
+            <input type="text" id="agemin" [(ngModel)]="profilborne.agemin" name="agemin" />
+            <br>
+            <label for="agemax">Agemax: </label><br>
+            <input type="text" id="agemax" [(ngModel)]="profilborne.agemax" name="agemax" />
+            <br>
+            <label for="dateborne">Dateborne: </label><br>
+            <input type="datetime-local" id="dateborne" [(ngModel)]="profilborne.dateborne" name="dateborne" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste profilborne </h2>
+                    <tr>
+                        <th>idprofilborne</th>
+                        <th>idprofil</th>
+                        <th>nomprofil</th>
+                        <th>agemin</th>
+                        <th>agemax</th>
+                        <th>dateborne</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let profilborne of profilbornes">
+                        <td>{{profilborne.idprofilborne}}</td>
+                        <td>{{profilborne.idprofil}}</td>
+                        <td>{{profilborne.nomprofil}}</td>
+                        <td>{{profilborne.agemin}}</td>
+                        <td>{{profilborne.agemax}}</td>
+                        <td>{{profilborne.dateborne}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(profilborne.idprofilborne)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(profilborne.idprofilborne)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

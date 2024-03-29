@@ -1,0 +1,98 @@
+<section>
+    <h1>postepersonne</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #postepersonneForm="ngForm" (ngSubmit)="submitFormCreate(postepersonneForm)" >
+            <h2>Save postepersonne</h2>
+
+            <input type="hidden" id="idpostepersonne" name="idpostepersonne" [value]="0" ngModel/><br> 
+            <label for="personne">Personne:<br>
+                <select id="personne" name="idpersonne" ngModel required >
+                        <option *ngFor="let personne of personnes" [value]="personne.idpersonne">{{ personne.nompersonne}}</option>
+                </select>
+            </label><br>
+            <label for="ouvrier">Ouvrier:<br>
+                <select id="ouvrier" name="idouvrier" ngModel required >
+                        <option *ngFor="let ouvrier of ouvriers" [value]="ouvrier.idouvrier">{{ ouvrier.typeouvrier}}</option>
+                </select>
+            </label><br>
+            <label for="dateposte">Dateposte: </label><br>
+            <input type="datetime-local" id="dateposte" name="dateposte" ngModel/>
+            <br>
+            <label for="estactif">Estactif: </label><br>
+            <input type="text" id="estactif" name="estactif" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="postepersonne" (ngSubmit)="submitFormUpdate()">
+            <h2>Update postepersonne</h2>
+
+            <input type="hidden" id="idpostepersonne" name="idpostepersonne" [(ngModel)]="postepersonne.idpostepersonne"><br> 
+            <label for="personne">Personne:<br>
+                <select id="personne" name="idpersonne" [(ngModel)]="postepersonne.idpersonne" required >
+                        <option *ngFor="let personne of personnes" [value]="personne.idpersonne">{{ personne.nompersonne}}</option>
+                </select>
+            </label><br>
+            <label for="ouvrier">Ouvrier:<br>
+                <select id="ouvrier" name="idouvrier" [(ngModel)]="postepersonne.idouvrier" required >
+                        <option *ngFor="let ouvrier of ouvriers" [value]="ouvrier.idouvrier">{{ ouvrier.typeouvrier}}</option>
+                </select>
+            </label><br>
+            <label for="dateposte">Dateposte: </label><br>
+            <input type="datetime-local" id="dateposte" [(ngModel)]="postepersonne.dateposte" name="dateposte" />
+            <br>
+            <label for="estactif">Estactif: </label><br>
+            <input type="text" id="estactif" [(ngModel)]="postepersonne.estactif" name="estactif" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste postepersonne </h2>
+                    <tr>
+                        <th>idpostepersonne</th>
+                        <th>idpersonne</th>
+                        <th>nompersonne</th>
+                        <th>nee</th>
+                        <th>sexe</th>
+                        <th>idouvrier</th>
+                        <th>typeouvrier</th>
+                        <th>dateposte</th>
+                        <th>estactif</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let postepersonne of postepersonnes">
+                        <td>{{postepersonne.idpostepersonne}}</td>
+                        <td>{{postepersonne.idpersonne}}</td>
+                        <td>{{postepersonne.nompersonne}}</td>
+                        <td>{{postepersonne.nee}}</td>
+                        <td>{{postepersonne.sexe}}</td>
+                        <td>{{postepersonne.idouvrier}}</td>
+                        <td>{{postepersonne.typeouvrier}}</td>
+                        <td>{{postepersonne.dateposte}}</td>
+                        <td>{{postepersonne.estactif}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(postepersonne.idpostepersonne)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(postepersonne.idpostepersonne)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

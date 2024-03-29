@@ -1,0 +1,58 @@
+<section>
+    <h1>ouvrier</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #ouvrierForm="ngForm" (ngSubmit)="submitFormCreate(ouvrierForm)" >
+            <h2>Save ouvrier</h2>
+
+            <input type="hidden" id="idouvrier" name="idouvrier" [value]="0" ngModel/><br> 
+            <label for="typeouvrier">Typeouvrier: </label><br>
+            <input type="text" id="typeouvrier" name="typeouvrier" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="ouvrier" (ngSubmit)="submitFormUpdate()">
+            <h2>Update ouvrier</h2>
+
+            <input type="hidden" id="idouvrier" name="idouvrier" [(ngModel)]="ouvrier.idouvrier"><br> 
+            <label for="typeouvrier">Typeouvrier: </label><br>
+            <input type="text" id="typeouvrier" [(ngModel)]="ouvrier.typeouvrier" name="typeouvrier" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste ouvrier </h2>
+                    <tr>
+                        <th>idouvrier</th>
+                        <th>typeouvrier</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ouvrier of ouvriers">
+                        <td>{{ouvrier.idouvrier}}</td>
+                        <td>{{ouvrier.typeouvrier}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(ouvrier.idouvrier)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(ouvrier.idouvrier)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

@@ -1,14 +1,105 @@
-<database>
-    <driver>org.postgresql.Driver</driver>
-    <url>jdbc:postgresql://localhost:5432</url>
-    <user>postgres</user>
-    <password>motmirado</password>
-    <databasename>meuble</databasename>
-</database>
-<!-- <database>
-    <driver>com.mysql.cj.jdbc.Driver</driver>
-    <url>jdbc:mysql://localhost:3306/</url>
-    <user>root</user>
-    <password></password>
-    <databasename>test</databasename>
-</database> -->
+<config>
+    <database>
+        <driver>org.postgresql.Driver</driver>
+        <url>jdbc:postgresql://localhost:5432</url>
+        <host>localhost</host>
+        <port>5432</port>
+        <user>postgres</user>
+        <password>motmirado</password>
+        <databasename>meuble</databasename>
+    </database>
+
+    <server>
+        <http>http</http>
+        <host>localhost</host>
+        <port>5031</port>
+    </server>
+
+
+    <pathvariablejson>
+        <angular>./template/view/angular/viewAngVariable.json</angular>
+        <classe>./template/classe/classvariable.json</classe>
+        <controller>./template/controller/controllervariable.json</controller>
+    </pathvariablejson>
+
+    <pathtemplate>
+        <angular>
+            <pathtemplatehtml>./template/view/angular/component.html.templ</pathtemplatehtml>
+            <pathtemplateComponentTs>./template/view/angular/component.ts.templ</pathtemplateComponentTs>
+            <pathtemplateComponentSpecTs>./template/view/angular/component.spec.ts.templ</pathtemplateComponentSpecTs>
+            <pathtemplatecompocss>./template/view/angular/component.css.templ</pathtemplatecompocss>
+
+            <pathtemplAppComponentHtml>./template/view/angular/app.component.html.templ</pathtemplAppComponentHtml>
+            <pathtemplAppRoutesTs>./template/view/angular/app.routes.ts.templ</pathtemplAppRoutesTs>
+            <pathtemplAppComponentTs>./template/view/angular/app.component.ts.templ</pathtemplAppComponentTs>
+        </angular>
+        <controller>./template/controller/Controller.templ</controller>
+        <class>./template/classe/Class.templ</class>
+        <connection>
+            <dotnet>
+                <path>./template/backend/dotnet/connection.templ</path> 
+                <nameclass>Connection</nameclass>
+            </dotnet>          
+            <spring>
+                <path></path> 
+                <nameclass></nameclass>
+            </spring>
+        </connection>
+    </pathtemplate>
+
+    <packageclass>
+        <spring>
+            <models>models</models>
+            <controllers>controllers</controllers>
+        </spring>
+        <dotnet>
+            <models>crudnet.Models</models>
+            <controllers>crudnet.Controllers</controllers>
+        </dotnet>
+    </packageclass>
+    
+    <pathdestination>
+        <project>D:/ITUS6/Naina</project>
+        <angular>
+            <app>src/app</app>
+            <pages>src/app</pages>
+        </angular>
+        <controllers>
+            <dotnet>Controllers</dotnet>
+            <spring>src/main/java/com/dev/controller</spring>
+        </controllers>
+        <classes>
+            <dotnet>Models</dotnet>
+            <spring>src/main/java/com/dev/models</spring>
+        </classes>
+        <connection>
+            <dotnet>Models</dotnet>
+            <spring></spring>
+        </connection>
+        
+    </pathdestination>
+
+    <pathsource>
+        <backend>
+            <dotnet>D:/ITUS5/Naina/codesource-genere/srcback/dotnet/myproject</dotnet>
+            <spring></spring>
+        </backend>
+        <frontend>
+            <angular>D:/ITUS5/Naina/codesource-genere/srcview/angular/crud_ang</angular>
+        </frontend>
+    </pathsource>
+    <!-- <database>
+        <driver>org.postgresql.Driver</driver>
+        <url>jdbc:postgresql://localhost:5432</url>
+        <user>postgres</user>
+        <password>motmirado</password>
+        <databasename>voitureoccas</databasename>
+    </database> -->
+    <!-- <database>
+        <driver>com.mysql.cj.jdbc.Driver</driver>
+        <url>jdbc:mysql://localhost:3306/</url>
+        <user>root</user>
+        <password></password>
+        <databasename>test</databasename>
+    </database> -->
+</config>

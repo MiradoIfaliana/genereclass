@@ -1,0 +1,10 @@
+<<imports>>import {<<lib_son>>} from '<<lib_mom>>';<</imports>>
+<<templ-importpage>>import { <<Pagename>>Component } from './<<pagename>>/<<pagename>>.component'; <</templ-importpage>>
+import { AcceuilComponent } from './acceuil/acceuil.component';
+
+
+export const routes: Routes = [
+    { path: '', redirectTo: '/acceuil', pathMatch: 'full' }, // Redirection vers la page par défaut
+<<templ-routepage>>    { path: '<<pagename>>', component: <<Pagename>>Component },<</templ-routepage>>
+    {path:'acceuil', component: AcceuilComponent }
+];

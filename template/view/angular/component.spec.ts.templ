@@ -1,0 +1,21 @@
+<<imports>>import {<<lib_son>>} from '<<lib_mom>>';<</imports>>
+import { <<Pagename>>Component } from './<<pagename>>.component';
+describe('<<Pagename>>Component', () => {
+  let component: <<Pagename>>Component;
+  let fixture: ComponentFixture<<<Pagename>>Component>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [<<Pagename>>Component]
+    })
+    .compileComponents();
+    
+    fixture = TestBed.createComponent(<<Pagename>>Component);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

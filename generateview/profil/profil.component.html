@@ -1,0 +1,58 @@
+<section>
+    <h1>profil</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #profilForm="ngForm" (ngSubmit)="submitFormCreate(profilForm)" >
+            <h2>Save profil</h2>
+
+            <input type="hidden" id="idprofil" name="idprofil" [value]="0" ngModel/><br> 
+            <label for="nomprofil">Nomprofil: </label><br>
+            <input type="text" id="nomprofil" name="nomprofil" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="profil" (ngSubmit)="submitFormUpdate()">
+            <h2>Update profil</h2>
+
+            <input type="hidden" id="idprofil" name="idprofil" [(ngModel)]="profil.idprofil"><br> 
+            <label for="nomprofil">Nomprofil: </label><br>
+            <input type="text" id="nomprofil" [(ngModel)]="profil.nomprofil" name="nomprofil" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste profil </h2>
+                    <tr>
+                        <th>idprofil</th>
+                        <th>nomprofil</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let profil of profils">
+                        <td>{{profil.idprofil}}</td>
+                        <td>{{profil.nomprofil}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(profil.idprofil)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(profil.idprofil)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

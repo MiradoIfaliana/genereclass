@@ -1,0 +1,74 @@
+<section>
+    <h1>foreigntab</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #foreigntabForm="ngForm" (ngSubmit)="submitFormCreate(foreigntabForm)" >
+            <h2>Save foreigntab</h2>
+
+            <input type="hidden" id="id" name="id" [value]="0" ngModel/><br> 
+            <label for="origintab">Origintab:<br>
+                <select id="origintab" name="idorigin" ngModel required >
+                        <option *ngFor="let origintab of origintabs" [value]="origintab.id">{{ origintab.nom}}</option>
+                </select>
+            </label><br>
+            <label for="daty">Daty: </label><br>
+            <input type="datetime-local" id="daty" name="daty" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="foreigntab" (ngSubmit)="submitFormUpdate()">
+            <h2>Update foreigntab</h2>
+
+            <input type="hidden" id="id" name="id" [(ngModel)]="foreigntab.id"><br> 
+            <label for="origintab">Origintab:<br>
+                <select id="origintab" name="idorigin" [(ngModel)]="foreigntab.idorigin" required >
+                        <option *ngFor="let origintab of origintabs" [value]="origintab.id">{{ origintab.nom}}</option>
+                </select>
+            </label><br>
+            <label for="daty">Daty: </label><br>
+            <input type="datetime-local" id="daty" [(ngModel)]="foreigntab.daty" name="daty" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste foreigntab </h2>
+                    <tr>
+                        <th>id</th>
+                        <th>id</th>
+                        <th>nom</th>
+                        <th>nee</th>
+                        <th>daty</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let foreigntab of foreigntabs">
+                        <td>{{foreigntab.id}}</td>
+                        <td>{{foreigntab.id}}</td>
+                        <td>{{foreigntab.nom}}</td>
+                        <td>{{foreigntab.nee}}</td>
+                        <td>{{foreigntab.daty}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(foreigntab.id)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(foreigntab.id)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

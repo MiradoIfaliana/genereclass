@@ -1,0 +1,82 @@
+<section>
+    <h1>matiereprix</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #matiereprixForm="ngForm" (ngSubmit)="submitFormCreate(matiereprixForm)" >
+            <h2>Save matiereprix</h2>
+
+            <input type="hidden" id="idmatiereprix" name="idmatiereprix" [value]="0" ngModel/><br> 
+            <label for="matiere">Matiere:<br>
+                <select id="matiere" name="idmatiere" ngModel required >
+                        <option *ngFor="let matiere of matieres" [value]="matiere.idmatiere">{{ matiere.nommatiere}}</option>
+                </select>
+            </label><br>
+            <label for="prix">Prix: </label><br>
+            <input type="text" id="prix" name="prix" ngModel/>
+            <br>
+            <label for="dateprix">Dateprix: </label><br>
+            <input type="datetime-local" id="dateprix" name="dateprix" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="matiereprix" (ngSubmit)="submitFormUpdate()">
+            <h2>Update matiereprix</h2>
+
+            <input type="hidden" id="idmatiereprix" name="idmatiereprix" [(ngModel)]="matiereprix.idmatiereprix"><br> 
+            <label for="matiere">Matiere:<br>
+                <select id="matiere" name="idmatiere" [(ngModel)]="matiereprix.idmatiere" required >
+                        <option *ngFor="let matiere of matieres" [value]="matiere.idmatiere">{{ matiere.nommatiere}}</option>
+                </select>
+            </label><br>
+            <label for="prix">Prix: </label><br>
+            <input type="text" id="prix" [(ngModel)]="matiereprix.prix" name="prix" />
+            <br>
+            <label for="dateprix">Dateprix: </label><br>
+            <input type="datetime-local" id="dateprix" [(ngModel)]="matiereprix.dateprix" name="dateprix" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste matiereprix </h2>
+                    <tr>
+                        <th>idmatiereprix</th>
+                        <th>idmatiere</th>
+                        <th>nommatiere</th>
+                        <th>idunite</th>
+                        <th>prix</th>
+                        <th>dateprix</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let matiereprix of matiereprixs">
+                        <td>{{matiereprix.idmatiereprix}}</td>
+                        <td>{{matiereprix.idmatiere}}</td>
+                        <td>{{matiereprix.nommatiere}}</td>
+                        <td>{{matiereprix.idunite}}</td>
+                        <td>{{matiereprix.prix}}</td>
+                        <td>{{matiereprix.dateprix}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(matiereprix.idmatiereprix)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(matiereprix.idmatiereprix)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

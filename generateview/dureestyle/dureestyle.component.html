@@ -1,0 +1,80 @@
+<section>
+    <h1>dureestyle</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #dureestyleForm="ngForm" (ngSubmit)="submitFormCreate(dureestyleForm)" >
+            <h2>Save dureestyle</h2>
+
+            <input type="hidden" id="iddureestyle" name="iddureestyle" [value]="0" ngModel/><br> 
+            <label for="style">Style:<br>
+                <select id="style" name="idstyle" ngModel required >
+                        <option *ngFor="let style of styles" [value]="style.idstyle">{{ style.nomstyle}}</option>
+                </select>
+            </label><br>
+            <label for="duree">Duree: </label><br>
+            <input type="text" id="duree" name="duree" ngModel/>
+            <br>
+            <label for="dateduree">Dateduree: </label><br>
+            <input type="datetime-local" id="dateduree" name="dateduree" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="dureestyle" (ngSubmit)="submitFormUpdate()">
+            <h2>Update dureestyle</h2>
+
+            <input type="hidden" id="iddureestyle" name="iddureestyle" [(ngModel)]="dureestyle.iddureestyle"><br> 
+            <label for="style">Style:<br>
+                <select id="style" name="idstyle" [(ngModel)]="dureestyle.idstyle" required >
+                        <option *ngFor="let style of styles" [value]="style.idstyle">{{ style.nomstyle}}</option>
+                </select>
+            </label><br>
+            <label for="duree">Duree: </label><br>
+            <input type="text" id="duree" [(ngModel)]="dureestyle.duree" name="duree" />
+            <br>
+            <label for="dateduree">Dateduree: </label><br>
+            <input type="datetime-local" id="dateduree" [(ngModel)]="dureestyle.dateduree" name="dateduree" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste dureestyle </h2>
+                    <tr>
+                        <th>iddureestyle</th>
+                        <th>idstyle</th>
+                        <th>nomstyle</th>
+                        <th>duree</th>
+                        <th>dateduree</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dureestyle of dureestyles">
+                        <td>{{dureestyle.iddureestyle}}</td>
+                        <td>{{dureestyle.idstyle}}</td>
+                        <td>{{dureestyle.nomstyle}}</td>
+                        <td>{{dureestyle.duree}}</td>
+                        <td>{{dureestyle.dateduree}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(dureestyle.iddureestyle)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(dureestyle.iddureestyle)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

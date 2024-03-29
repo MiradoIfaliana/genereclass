@@ -1,0 +1,78 @@
+<section>
+    <h1>ouvrierbesoin</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #ouvrierbesoinForm="ngForm" (ngSubmit)="submitFormCreate(ouvrierbesoinForm)" >
+            <h2>Save ouvrierbesoin</h2>
+
+            <input type="hidden" id="idouvrierbesoin" name="idouvrierbesoin" [value]="0" ngModel/><br> 
+            <label for="categorie">Categorie:<br>
+                <select id="categorie" name="idcategorie" ngModel required >
+                        <option *ngFor="let categorie of categories" [value]="categorie.idcategorie">{{ categorie.nomcategorie}}</option>
+                </select>
+            </label><br>
+            <label for="ouvrier">Ouvrier:<br>
+                <select id="ouvrier" name="idouvrier" ngModel required >
+                        <option *ngFor="let ouvrier of ouvriers" [value]="ouvrier.idouvrier">{{ ouvrier.typeouvrier}}</option>
+                </select>
+            </label><br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="ouvrierbesoin" (ngSubmit)="submitFormUpdate()">
+            <h2>Update ouvrierbesoin</h2>
+
+            <input type="hidden" id="idouvrierbesoin" name="idouvrierbesoin" [(ngModel)]="ouvrierbesoin.idouvrierbesoin"><br> 
+            <label for="categorie">Categorie:<br>
+                <select id="categorie" name="idcategorie" [(ngModel)]="ouvrierbesoin.idcategorie" required >
+                        <option *ngFor="let categorie of categories" [value]="categorie.idcategorie">{{ categorie.nomcategorie}}</option>
+                </select>
+            </label><br>
+            <label for="ouvrier">Ouvrier:<br>
+                <select id="ouvrier" name="idouvrier" [(ngModel)]="ouvrierbesoin.idouvrier" required >
+                        <option *ngFor="let ouvrier of ouvriers" [value]="ouvrier.idouvrier">{{ ouvrier.typeouvrier}}</option>
+                </select>
+            </label><br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste ouvrierbesoin </h2>
+                    <tr>
+                        <th>idouvrierbesoin</th>
+                        <th>idcategorie</th>
+                        <th>nomcategorie</th>
+                        <th>idouvrier</th>
+                        <th>typeouvrier</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ouvrierbesoin of ouvrierbesoins">
+                        <td>{{ouvrierbesoin.idouvrierbesoin}}</td>
+                        <td>{{ouvrierbesoin.idcategorie}}</td>
+                        <td>{{ouvrierbesoin.nomcategorie}}</td>
+                        <td>{{ouvrierbesoin.idouvrier}}</td>
+                        <td>{{ouvrierbesoin.typeouvrier}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(ouvrierbesoin.idouvrierbesoin)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(ouvrierbesoin.idouvrierbesoin)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

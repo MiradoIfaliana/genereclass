@@ -1,0 +1,58 @@
+<section>
+    <h1>style</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #styleForm="ngForm" (ngSubmit)="submitFormCreate(styleForm)" >
+            <h2>Save style</h2>
+
+            <input type="hidden" id="idstyle" name="idstyle" [value]="0" ngModel/><br> 
+            <label for="nomstyle">Nomstyle: </label><br>
+            <input type="text" id="nomstyle" name="nomstyle" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="style" (ngSubmit)="submitFormUpdate()">
+            <h2>Update style</h2>
+
+            <input type="hidden" id="idstyle" name="idstyle" [(ngModel)]="style.idstyle"><br> 
+            <label for="nomstyle">Nomstyle: </label><br>
+            <input type="text" id="nomstyle" [(ngModel)]="style.nomstyle" name="nomstyle" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste style </h2>
+                    <tr>
+                        <th>idstyle</th>
+                        <th>nomstyle</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let style of styles">
+                        <td>{{style.idstyle}}</td>
+                        <td>{{style.nomstyle}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(style.idstyle)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(style.idstyle)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

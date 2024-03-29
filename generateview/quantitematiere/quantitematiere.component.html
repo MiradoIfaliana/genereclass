@@ -1,0 +1,102 @@
+<section>
+    <h1>quantitematiere</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #quantitematiereForm="ngForm" (ngSubmit)="submitFormCreate(quantitematiereForm)" >
+            <h2>Save quantitematiere</h2>
+
+            <input type="hidden" id="idquantitematiere" name="idquantitematiere" [value]="0" ngModel/><br> 
+            <label for="matierestyle">Matierestyle:<br>
+                <select id="matierestyle" name="idmatierestyle" ngModel required >
+                        <option *ngFor="let matierestyle of matierestyles" [value]="matierestyle.idmatierestyle">{{ matierestyle.idmatierestyle}}</option>
+                </select>
+            </label><br>
+            <label for="taille">Taille:<br>
+                <select id="taille" name="idtaille" ngModel required >
+                        <option *ngFor="let taille of tailles" [value]="taille.idtaille">{{ taille.nomtaille}}</option>
+                </select>
+            </label><br>
+            <label for="quantite">Quantite: </label><br>
+            <input type="text" id="quantite" name="quantite" ngModel/>
+            <br>
+            <label for="categorie">Categorie:<br>
+                <select id="categorie" name="idcategorie" ngModel required >
+                        <option *ngFor="let categorie of categories" [value]="categorie.idcategorie">{{ categorie.nomcategorie}}</option>
+                </select>
+            </label><br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="quantitematiere" (ngSubmit)="submitFormUpdate()">
+            <h2>Update quantitematiere</h2>
+
+            <input type="hidden" id="idquantitematiere" name="idquantitematiere" [(ngModel)]="quantitematiere.idquantitematiere"><br> 
+            <label for="matierestyle">Matierestyle:<br>
+                <select id="matierestyle" name="idmatierestyle" [(ngModel)]="quantitematiere.idmatierestyle" required >
+                        <option *ngFor="let matierestyle of matierestyles" [value]="matierestyle.idmatierestyle">{{ matierestyle.idmatierestyle}}</option>
+                </select>
+            </label><br>
+            <label for="taille">Taille:<br>
+                <select id="taille" name="idtaille" [(ngModel)]="quantitematiere.idtaille" required >
+                        <option *ngFor="let taille of tailles" [value]="taille.idtaille">{{ taille.nomtaille}}</option>
+                </select>
+            </label><br>
+            <label for="quantite">Quantite: </label><br>
+            <input type="text" id="quantite" [(ngModel)]="quantitematiere.quantite" name="quantite" />
+            <br>
+            <label for="categorie">Categorie:<br>
+                <select id="categorie" name="idcategorie" [(ngModel)]="quantitematiere.idcategorie" required >
+                        <option *ngFor="let categorie of categories" [value]="categorie.idcategorie">{{ categorie.nomcategorie}}</option>
+                </select>
+            </label><br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste quantitematiere </h2>
+                    <tr>
+                        <th>idquantitematiere</th>
+                        <th>idmatierestyle</th>
+                        <th>idmatiere</th>
+                        <th>idstyle</th>
+                        <th>idtaille</th>
+                        <th>nomtaille</th>
+                        <th>quantite</th>
+                        <th>idcategorie</th>
+                        <th>nomcategorie</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let quantitematiere of quantitematieres">
+                        <td>{{quantitematiere.idquantitematiere}}</td>
+                        <td>{{quantitematiere.idmatierestyle}}</td>
+                        <td>{{quantitematiere.idmatiere}}</td>
+                        <td>{{quantitematiere.idstyle}}</td>
+                        <td>{{quantitematiere.idtaille}}</td>
+                        <td>{{quantitematiere.nomtaille}}</td>
+                        <td>{{quantitematiere.quantite}}</td>
+                        <td>{{quantitematiere.idcategorie}}</td>
+                        <td>{{quantitematiere.nomcategorie}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(quantitematiere.idquantitematiere)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(quantitematiere.idquantitematiere)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

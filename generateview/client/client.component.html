@@ -1,0 +1,74 @@
+<section>
+    <h1>client</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #clientForm="ngForm" (ngSubmit)="submitFormCreate(clientForm)" >
+            <h2>Save client</h2>
+
+            <input type="hidden" id="idclient" name="idclient" [value]="0" ngModel/><br> 
+            <label for="nomclient">Nomclient: </label><br>
+            <input type="text" id="nomclient" name="nomclient" ngModel/>
+            <br>
+            <label for="genre">Genre: </label><br>
+            <input type="text" id="genre" name="genre" ngModel/>
+            <br>
+            <label for="nee">Nee: </label><br>
+            <input type="datetime-local" id="nee" name="nee" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="client" (ngSubmit)="submitFormUpdate()">
+            <h2>Update client</h2>
+
+            <input type="hidden" id="idclient" name="idclient" [(ngModel)]="client.idclient"><br> 
+            <label for="nomclient">Nomclient: </label><br>
+            <input type="text" id="nomclient" [(ngModel)]="client.nomclient" name="nomclient" />
+            <br>
+            <label for="genre">Genre: </label><br>
+            <input type="text" id="genre" [(ngModel)]="client.genre" name="genre" />
+            <br>
+            <label for="nee">Nee: </label><br>
+            <input type="datetime-local" id="nee" [(ngModel)]="client.nee" name="nee" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste client </h2>
+                    <tr>
+                        <th>idclient</th>
+                        <th>nomclient</th>
+                        <th>genre</th>
+                        <th>nee</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let client of clients">
+                        <td>{{client.idclient}}</td>
+                        <td>{{client.nomclient}}</td>
+                        <td>{{client.genre}}</td>
+                        <td>{{client.nee}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(client.idclient)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(client.idclient)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

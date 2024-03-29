@@ -1,0 +1,88 @@
+<section>
+    <h1>ouvrierbesointaille</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #ouvrierbesointailleForm="ngForm" (ngSubmit)="submitFormCreate(ouvrierbesointailleForm)" >
+            <h2>Save ouvrierbesointaille</h2>
+
+            <input type="hidden" id="idouvrierbesointaille" name="idouvrierbesointaille" [value]="0" ngModel/><br> 
+            <label for="taille">Taille:<br>
+                <select id="taille" name="idtaille" ngModel required >
+                        <option *ngFor="let taille of tailles" [value]="taille.idtaille">{{ taille.nomtaille}}</option>
+                </select>
+            </label><br>
+            <label for="ouvrierbesoin">Ouvrierbesoin:<br>
+                <select id="ouvrierbesoin" name="idouvrierbesoin" ngModel required >
+                        <option *ngFor="let ouvrierbesoin of ouvrierbesoins" [value]="ouvrierbesoin.idouvrierbesoin">{{ ouvrierbesoin.idouvrierbesoin}}</option>
+                </select>
+            </label><br>
+            <label for="nombre">Nombre: </label><br>
+            <input type="text" id="nombre" name="nombre" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="ouvrierbesointaille" (ngSubmit)="submitFormUpdate()">
+            <h2>Update ouvrierbesointaille</h2>
+
+            <input type="hidden" id="idouvrierbesointaille" name="idouvrierbesointaille" [(ngModel)]="ouvrierbesointaille.idouvrierbesointaille"><br> 
+            <label for="taille">Taille:<br>
+                <select id="taille" name="idtaille" [(ngModel)]="ouvrierbesointaille.idtaille" required >
+                        <option *ngFor="let taille of tailles" [value]="taille.idtaille">{{ taille.nomtaille}}</option>
+                </select>
+            </label><br>
+            <label for="ouvrierbesoin">Ouvrierbesoin:<br>
+                <select id="ouvrierbesoin" name="idouvrierbesoin" [(ngModel)]="ouvrierbesointaille.idouvrierbesoin" required >
+                        <option *ngFor="let ouvrierbesoin of ouvrierbesoins" [value]="ouvrierbesoin.idouvrierbesoin">{{ ouvrierbesoin.idouvrierbesoin}}</option>
+                </select>
+            </label><br>
+            <label for="nombre">Nombre: </label><br>
+            <input type="text" id="nombre" [(ngModel)]="ouvrierbesointaille.nombre" name="nombre" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste ouvrierbesointaille </h2>
+                    <tr>
+                        <th>idouvrierbesointaille</th>
+                        <th>idtaille</th>
+                        <th>nomtaille</th>
+                        <th>idouvrierbesoin</th>
+                        <th>idcategorie</th>
+                        <th>idouvrier</th>
+                        <th>nombre</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ouvrierbesointaille of ouvrierbesointailles">
+                        <td>{{ouvrierbesointaille.idouvrierbesointaille}}</td>
+                        <td>{{ouvrierbesointaille.idtaille}}</td>
+                        <td>{{ouvrierbesointaille.nomtaille}}</td>
+                        <td>{{ouvrierbesointaille.idouvrierbesoin}}</td>
+                        <td>{{ouvrierbesointaille.idcategorie}}</td>
+                        <td>{{ouvrierbesointaille.idouvrier}}</td>
+                        <td>{{ouvrierbesointaille.nombre}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(ouvrierbesointaille.idouvrierbesointaille)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(ouvrierbesointaille.idouvrierbesointaille)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

@@ -1,0 +1,86 @@
+<section>
+    <h1>nbouvrier</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #nbouvrierForm="ngForm" (ngSubmit)="submitFormCreate(nbouvrierForm)" >
+            <h2>Save nbouvrier</h2>
+
+            <input type="hidden" id="idnbouvrier" name="idnbouvrier" [value]="0" ngModel/><br> 
+            <label for="categorie">Categorie:<br>
+                <select id="categorie" name="idcategorie" ngModel required >
+                        <option *ngFor="let categorie of categories" [value]="categorie.idcategorie">{{ categorie.nomcategorie}}</option>
+                </select>
+            </label><br>
+            <label for="taille">Taille:<br>
+                <select id="taille" name="idtaille" ngModel required >
+                        <option *ngFor="let taille of tailles" [value]="taille.idtaille">{{ taille.nomtaille}}</option>
+                </select>
+            </label><br>
+            <label for="nombre">Nombre: </label><br>
+            <input type="text" id="nombre" name="nombre" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="nbouvrier" (ngSubmit)="submitFormUpdate()">
+            <h2>Update nbouvrier</h2>
+
+            <input type="hidden" id="idnbouvrier" name="idnbouvrier" [(ngModel)]="nbouvrier.idnbouvrier"><br> 
+            <label for="categorie">Categorie:<br>
+                <select id="categorie" name="idcategorie" [(ngModel)]="nbouvrier.idcategorie" required >
+                        <option *ngFor="let categorie of categories" [value]="categorie.idcategorie">{{ categorie.nomcategorie}}</option>
+                </select>
+            </label><br>
+            <label for="taille">Taille:<br>
+                <select id="taille" name="idtaille" [(ngModel)]="nbouvrier.idtaille" required >
+                        <option *ngFor="let taille of tailles" [value]="taille.idtaille">{{ taille.nomtaille}}</option>
+                </select>
+            </label><br>
+            <label for="nombre">Nombre: </label><br>
+            <input type="text" id="nombre" [(ngModel)]="nbouvrier.nombre" name="nombre" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste nbouvrier </h2>
+                    <tr>
+                        <th>idnbouvrier</th>
+                        <th>idcategorie</th>
+                        <th>nomcategorie</th>
+                        <th>idtaille</th>
+                        <th>nomtaille</th>
+                        <th>nombre</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let nbouvrier of nbouvriers">
+                        <td>{{nbouvrier.idnbouvrier}}</td>
+                        <td>{{nbouvrier.idcategorie}}</td>
+                        <td>{{nbouvrier.nomcategorie}}</td>
+                        <td>{{nbouvrier.idtaille}}</td>
+                        <td>{{nbouvrier.nomtaille}}</td>
+                        <td>{{nbouvrier.nombre}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(nbouvrier.idnbouvrier)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(nbouvrier.idnbouvrier)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

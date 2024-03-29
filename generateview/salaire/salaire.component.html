@@ -1,0 +1,80 @@
+<section>
+    <h1>salaire</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #salaireForm="ngForm" (ngSubmit)="submitFormCreate(salaireForm)" >
+            <h2>Save salaire</h2>
+
+            <input type="hidden" id="idsalaire" name="idsalaire" [value]="0" ngModel/><br> 
+            <label for="ouvrier">Ouvrier:<br>
+                <select id="ouvrier" name="idouvrier" ngModel required >
+                        <option *ngFor="let ouvrier of ouvriers" [value]="ouvrier.idouvrier">{{ ouvrier.typeouvrier}}</option>
+                </select>
+            </label><br>
+            <label for="salaires">Salaires: </label><br>
+            <input type="text" id="salaires" name="salaires" ngModel/>
+            <br>
+            <label for="datesalaire">Datesalaire: </label><br>
+            <input type="datetime-local" id="datesalaire" name="datesalaire" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="salaire" (ngSubmit)="submitFormUpdate()">
+            <h2>Update salaire</h2>
+
+            <input type="hidden" id="idsalaire" name="idsalaire" [(ngModel)]="salaire.idsalaire"><br> 
+            <label for="ouvrier">Ouvrier:<br>
+                <select id="ouvrier" name="idouvrier" [(ngModel)]="salaire.idouvrier" required >
+                        <option *ngFor="let ouvrier of ouvriers" [value]="ouvrier.idouvrier">{{ ouvrier.typeouvrier}}</option>
+                </select>
+            </label><br>
+            <label for="salaires">Salaires: </label><br>
+            <input type="text" id="salaires" [(ngModel)]="salaire.salaires" name="salaires" />
+            <br>
+            <label for="datesalaire">Datesalaire: </label><br>
+            <input type="datetime-local" id="datesalaire" [(ngModel)]="salaire.datesalaire" name="datesalaire" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste salaire </h2>
+                    <tr>
+                        <th>idsalaire</th>
+                        <th>idouvrier</th>
+                        <th>typeouvrier</th>
+                        <th>salaires</th>
+                        <th>datesalaire</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let salaire of salaires">
+                        <td>{{salaire.idsalaire}}</td>
+                        <td>{{salaire.idouvrier}}</td>
+                        <td>{{salaire.typeouvrier}}</td>
+                        <td>{{salaire.salaires}}</td>
+                        <td>{{salaire.datesalaire}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(salaire.idsalaire)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(salaire.idsalaire)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

@@ -7,33 +7,179 @@
 <crud>
     <create>
     #annotationPost#
-    public #returnType# create<Typeclass>(#bodyAttribute# <TypeRequest> <nameparam>) #bracketopen# 
-        <Typereturn> <variablereturn> #endline#
-        return #returnkey# #endline#
+    public #typeresponse# create<Typeclass>(#bodyAttribute# <Typeclass> <typeclass>) #bracketopen# 
+        #typegettersconnection# connect= <instancegettersconnection> #endline#
+        #typeconnexion# connexion = connect.#methodgettersconnection# #endline#
+        #typeresponse# response = <instancetyperesponse> #endline#
+        #trykey##bracketopen#
+            <typeclass>.#methodcreate# #endline#
+<responsetry>            #setresponse# #endline#</responsetry>
+        #bracketclose#
+        #catchkey#(#exceptiontype# ex)#bracketopen#
+<responsecatch>            #setresponse# #endline#</responsecatch>
+            #printthrow# #endline#
+        #bracketclose#
+        #finallykey##bracketopen#
+            if(connexion #diffcompare# #nullvalue#)#bracketopen#
+                #trykey##bracketopen#
+                    connexion.#closeconnection# #endline#
+                #bracketclose#
+                #catchkey#(#exceptiontype# ex)#bracketopen#
+                    #printthrow# #endline#
+                #bracketclose#
+            #bracketclose#
+        #bracketclose#
+
+        return response #endline#
     #bracketclose#
     </create>
 
     <read>
     #annotationGet#
-    public #returnType# read<Typeclass>() #bracketopen# 
-        <Typereturn> <variablereturn> #endline#
-        return #returnkey# #endline#
+    public #typeresponse# read<Typeclass>() #bracketopen# 
+        #typegettersconnection# connect= <instancegettersconnection> #endline#
+        #typeconnexion# connexion = connect.#methodgettersconnection# #endline#
+        #typeresponse# response = <instancetyperesponse> #endline#
+        #trykey##bracketopen#
+            <Typeclass> <typeclass> = <instancetypeclass> #endline#
+<responsetry>            #setresponse# #endline#</responsetry>
+        #bracketclose#
+        #catchkey#(#exceptiontype# ex)#bracketopen#
+<responsecatch>            #setresponse# #endline#</responsecatch>
+            #printthrow# #endline#
+        #bracketclose#
+        #finallykey##bracketopen#
+            if(connexion #diffcompare# #nullvalue#)#bracketopen#
+                #trykey##bracketopen#
+                    connexion.#closeconnection# #endline#
+                #bracketclose#
+                #catchkey#(#exceptiontype# ex)#bracketopen#
+                    #printthrow# #endline#
+                #bracketclose#
+            #bracketclose#
+        #bracketclose#
+
+        return response #endline#
     #bracketclose#
     </read>
 
+    <readDetailed>
+    #annotationGet#
+    public #typeresponse# read<Typeclass>Detailed() #bracketopen# 
+        #typegettersconnection# connect= <instancegettersconnection> #endline#
+        #typeconnexion# connexion = connect.#methodgettersconnection# #endline#
+        #typeresponse# response = <instancetyperesponse> #endline#
+        #trykey##bracketopen#
+            <Typeclass> <typeclass> = <instancetypeclass> #endline#
+            #caracteres# query = "<queryreaddetailed>" #endline#
+<responsetry>            #setresponse# #endline#</responsetry>
+        #bracketclose#
+        #catchkey#(#exceptiontype# ex)#bracketopen#
+<responsecatch>            #setresponse# #endline#</responsecatch>
+            #printthrow# #endline#
+        #bracketclose#
+        #finallykey##bracketopen#
+            if(connexion #diffcompare# #nullvalue#)#bracketopen#
+                #trykey##bracketopen#
+                    connexion.#closeconnection# #endline#
+                #bracketclose#
+                #catchkey#(#exceptiontype# ex)#bracketopen#
+                    #printthrow# #endline#
+                #bracketclose#
+            #bracketclose#
+        #bracketclose#
+
+        return response #endline#
+    #bracketclose#
+    </readDetailed>
+
+    <readById>
+    #annotationGet#
+    public #typeresponse# read<Typeclass>ById(#requestAttribute# #identifierType# id) #bracketopen# 
+        #typegettersconnection# connect= <instancegettersconnection> #endline#
+        #typeconnexion# connexion = connect.#methodgettersconnection# #endline#
+        #typeresponse# response = <instancetyperesponse> #endline#
+        #trykey##bracketopen#
+            <Typeclass> <typeclass> = <instancetypeclass> #endline#
+<responsetry>            #setresponse# #endline#</responsetry>
+        #bracketclose#
+        #catchkey#(#exceptiontype# ex)#bracketopen#
+<responsecatch>            #setresponse# #endline#</responsecatch>
+            #printthrow# #endline#
+        #bracketclose#
+        #finallykey##bracketopen#
+            if(connexion #diffcompare# #nullvalue#)#bracketopen#
+                #trykey##bracketopen#
+                    connexion.#closeconnection# #endline#
+                #bracketclose#
+                #catchkey#(#exceptiontype# ex)#bracketopen#
+                    #printthrow# #endline#
+                #bracketclose#
+            #bracketclose#
+        #bracketclose#
+
+        return response #endline#
+    #bracketclose#
+    </readById>
+
     <update>
     #annotationPut#
-    public #returnType# update<Typeclass>(#pathAttribute# #identifierType# id, #bodyAttribute# <TypeRequest> <nameparam>) #bracketopen#
-        <Typereturn> <variablereturn> #endline#
-        return #returnkey# #endline#
+    public #typeresponse# update<Typeclass>(#requestAttribute# #identifierType# id, #bodyAttribute# <Typeclass> <typeclass>) #bracketopen#
+        #typegettersconnection# connect= <instancegettersconnection> #endline#
+        #typeconnexion# connexion = connect.#methodgettersconnection# #endline#
+        #typeresponse# response = <instancetyperesponse> #endline#
+        #trykey##bracketopen#
+            <typeclass>.#methodsetid# #endline#
+            <typeclass>.#methodupdate# #endline#
+<responsetry>            #setresponse# #endline#</responsetry>
+        #bracketclose#
+        #catchkey#(#exceptiontype# ex)#bracketopen#
+<responsecatch>            #setresponse# #endline#</responsecatch>
+            #printthrow# #endline#
+        #bracketclose#
+        #finallykey##bracketopen#
+            if(connexion #diffcompare# #nullvalue#)#bracketopen#
+                #trykey##bracketopen#
+                    connexion.#closeconnection# #endline#
+                #bracketclose#
+                #catchkey#(#exceptiontype# ex)#bracketopen#
+                    #printthrow# #endline#
+                #bracketclose#
+            #bracketclose#
+        #bracketclose#
+
+        return response #endline#
     #bracketclose#
     </update>
 
     <delete>
     #annotationDelete#
-    public #returnType# delete<Typeclass>(#pathAttribute# #identifierType# id) #bracketopen# 
-        <Typereturn> <variablereturn> #endline#
-        return #returnkey# #endline#
+    public #typeresponse# delete<Typeclass>(#requestAttribute# #identifierType# id) #bracketopen# 
+        #typegettersconnection# connect= <instancegettersconnection> #endline#
+        #typeconnexion# connexion = connect.#methodgettersconnection# #endline#
+        #typeresponse# response = <instancetyperesponse> #endline#
+        #trykey##bracketopen#
+            <Typeclass> <typeclass> = <instancetypeclass> #endline#
+            <typeclass>.#methodsetid# #endline#
+            <typeclass>.#methoddelete# #endline#
+<responsetry>            #setresponse# #endline#</responsetry>
+        #bracketclose#
+        #catchkey#(#exceptiontype# ex)#bracketopen#
+<responsecatch>            #setresponse# #endline#</responsecatch>
+            #printthrow# #endline#
+        #bracketclose#
+        #finallykey##bracketopen#
+            if(connexion #diffcompare# #nullvalue#)#bracketopen#
+                #trykey##bracketopen#
+                    connexion.#closeconnection# #endline#
+                #bracketclose#
+                #catchkey#(#exceptiontype# ex)#bracketopen#
+                    #printthrow# #endline#
+                #bracketclose#
+            #bracketclose#
+        #bracketclose#
+
+        return response #endline#
     #bracketclose#
     </delete>
 </crud>

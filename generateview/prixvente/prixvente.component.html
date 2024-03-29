@@ -1,0 +1,108 @@
+<section>
+    <h1>prixvente</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #prixventeForm="ngForm" (ngSubmit)="submitFormCreate(prixventeForm)" >
+            <h2>Save prixvente</h2>
+
+            <input type="hidden" id="idprixvente" name="idprixvente" [value]="0" ngModel/><br> 
+            <label for="categorie">Categorie:<br>
+                <select id="categorie" name="idcategorie" ngModel required >
+                        <option *ngFor="let categorie of categories" [value]="categorie.idcategorie">{{ categorie.nomcategorie}}</option>
+                </select>
+            </label><br>
+            <label for="style">Style:<br>
+                <select id="style" name="idstyle" ngModel required >
+                        <option *ngFor="let style of styles" [value]="style.idstyle">{{ style.nomstyle}}</option>
+                </select>
+            </label><br>
+            <label for="taille">Taille:<br>
+                <select id="taille" name="idtaille" ngModel required >
+                        <option *ngFor="let taille of tailles" [value]="taille.idtaille">{{ taille.nomtaille}}</option>
+                </select>
+            </label><br>
+            <label for="prixvente">Prixvente: </label><br>
+            <input type="text" id="prixvente" name="prixvente" ngModel/>
+            <br>
+            <label for="dateprix">Dateprix: </label><br>
+            <input type="datetime-local" id="dateprix" name="dateprix" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="prixvente" (ngSubmit)="submitFormUpdate()">
+            <h2>Update prixvente</h2>
+
+            <input type="hidden" id="idprixvente" name="idprixvente" [(ngModel)]="prixvente.idprixvente"><br> 
+            <label for="categorie">Categorie:<br>
+                <select id="categorie" name="idcategorie" [(ngModel)]="prixvente.idcategorie" required >
+                        <option *ngFor="let categorie of categories" [value]="categorie.idcategorie">{{ categorie.nomcategorie}}</option>
+                </select>
+            </label><br>
+            <label for="style">Style:<br>
+                <select id="style" name="idstyle" [(ngModel)]="prixvente.idstyle" required >
+                        <option *ngFor="let style of styles" [value]="style.idstyle">{{ style.nomstyle}}</option>
+                </select>
+            </label><br>
+            <label for="taille">Taille:<br>
+                <select id="taille" name="idtaille" [(ngModel)]="prixvente.idtaille" required >
+                        <option *ngFor="let taille of tailles" [value]="taille.idtaille">{{ taille.nomtaille}}</option>
+                </select>
+            </label><br>
+            <label for="prixvente">Prixvente: </label><br>
+            <input type="text" id="prixvente" [(ngModel)]="prixvente.prixvente" name="prixvente" />
+            <br>
+            <label for="dateprix">Dateprix: </label><br>
+            <input type="datetime-local" id="dateprix" [(ngModel)]="prixvente.dateprix" name="dateprix" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste prixvente </h2>
+                    <tr>
+                        <th>idprixvente</th>
+                        <th>idcategorie</th>
+                        <th>nomcategorie</th>
+                        <th>idstyle</th>
+                        <th>nomstyle</th>
+                        <th>idtaille</th>
+                        <th>nomtaille</th>
+                        <th>prixvente</th>
+                        <th>dateprix</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let prixvente of prixventes">
+                        <td>{{prixvente.idprixvente}}</td>
+                        <td>{{prixvente.idcategorie}}</td>
+                        <td>{{prixvente.nomcategorie}}</td>
+                        <td>{{prixvente.idstyle}}</td>
+                        <td>{{prixvente.nomstyle}}</td>
+                        <td>{{prixvente.idtaille}}</td>
+                        <td>{{prixvente.nomtaille}}</td>
+                        <td>{{prixvente.prixvente}}</td>
+                        <td>{{prixvente.dateprix}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(prixvente.idprixvente)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(prixvente.idprixvente)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

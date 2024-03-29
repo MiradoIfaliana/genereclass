@@ -1,0 +1,41 @@
+{
+    "angular":{
+        "typetext":"text",
+        "typedate":"date",
+        "typenumber":"number",
+        "typehidden":"hidden",
+        "typedatetime":"datetime-local",
+        "typetime":"time",
+
+        "endpointcreate":"<<http>>://<<host>>:<<port>>/api/<<Entityname>>Controller/create<<Entityname>>",
+        "endpointread":"<<http>>://<<host>>:<<port>>/api/<<Entityname>>Controller/read<<Entityname>>",
+        "endpointreaddetailed":"<<http>>://<<host>>:<<port>>/api/<<Entityname>>Controller/read<<Entityname>>Detailed",
+        "endpointreadbyid":"<<http>>://<<host>>:<<port>>/api/<<Entityname>>Controller/read<<Entityname>>ById?id=",
+        "endpointupdate":"<<http>>://<<host>>:<<port>>/api/<<Entityname>>Controller/update<<Entityname>>?id=",
+        "endpointdelete":"<<http>>://<<host>>:<<port>>/api/<<Entityname>>Controller/delete<<Entityname>>?id=",
+
+        "importcomponentts":[
+            ["Component","@angular/core"],
+            ["HttpClient","@angular/common/http"],
+            ["HttpClientModule","@angular/common/http"],
+            ["CommonModule","@angular/common"],
+            ["FormsModule, NgForm","@angular/forms"]
+        ],
+
+        "importcomponentspects":[
+            ["ComponentFixture, TestBed","@angular/core/testing"]
+        ],
+
+        "importapproutes":[
+            ["Routes","@angular/router"]
+        ],
+
+        "importstocomponent":[
+            "CommonModule",
+            "FormsModule",
+            "HttpClientModule"
+        ]
+
+
+    }
+}

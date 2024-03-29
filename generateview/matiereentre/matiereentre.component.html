@@ -1,0 +1,82 @@
+<section>
+    <h1>matiereentre</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #matiereentreForm="ngForm" (ngSubmit)="submitFormCreate(matiereentreForm)" >
+            <h2>Save matiereentre</h2>
+
+            <input type="hidden" id="idmatiereentre" name="idmatiereentre" [value]="0" ngModel/><br> 
+            <label for="matiere">Matiere:<br>
+                <select id="matiere" name="idmatiere" ngModel required >
+                        <option *ngFor="let matiere of matieres" [value]="matiere.idmatiere">{{ matiere.nommatiere}}</option>
+                </select>
+            </label><br>
+            <label for="equantite">Equantite: </label><br>
+            <input type="text" id="equantite" name="equantite" ngModel/>
+            <br>
+            <label for="dateentre">Dateentre: </label><br>
+            <input type="datetime-local" id="dateentre" name="dateentre" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="matiereentre" (ngSubmit)="submitFormUpdate()">
+            <h2>Update matiereentre</h2>
+
+            <input type="hidden" id="idmatiereentre" name="idmatiereentre" [(ngModel)]="matiereentre.idmatiereentre"><br> 
+            <label for="matiere">Matiere:<br>
+                <select id="matiere" name="idmatiere" [(ngModel)]="matiereentre.idmatiere" required >
+                        <option *ngFor="let matiere of matieres" [value]="matiere.idmatiere">{{ matiere.nommatiere}}</option>
+                </select>
+            </label><br>
+            <label for="equantite">Equantite: </label><br>
+            <input type="text" id="equantite" [(ngModel)]="matiereentre.equantite" name="equantite" />
+            <br>
+            <label for="dateentre">Dateentre: </label><br>
+            <input type="datetime-local" id="dateentre" [(ngModel)]="matiereentre.dateentre" name="dateentre" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste matiereentre </h2>
+                    <tr>
+                        <th>idmatiereentre</th>
+                        <th>idmatiere</th>
+                        <th>nommatiere</th>
+                        <th>idunite</th>
+                        <th>equantite</th>
+                        <th>dateentre</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let matiereentre of matiereentres">
+                        <td>{{matiereentre.idmatiereentre}}</td>
+                        <td>{{matiereentre.idmatiere}}</td>
+                        <td>{{matiereentre.nommatiere}}</td>
+                        <td>{{matiereentre.idunite}}</td>
+                        <td>{{matiereentre.equantite}}</td>
+                        <td>{{matiereentre.dateentre}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(matiereentre.idmatiereentre)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(matiereentre.idmatiereentre)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

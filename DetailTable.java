@@ -6,15 +6,26 @@ public class DetailTable
   String columntype;
   String columntechtype;
   String libimport;
+
+  boolean estPK;
+  boolean estFK;
+  String tabOriginFk;
+  String colFromOrigin;
+
+
     
     public DetailTable() {
     }
-    public DetailTable(String nametable, String columnname, String columntype, String columntechtype, String libimport) {
+    public DetailTable(String nametable, String columnname, String columntype, String columntechtype, String libimport,boolean estPK,boolean estFK,String tabOriginFk,String colFromOrigin) {
         this.nametable = nametable;
         this.columnname = columnname;
         this.columntype = columntype;
         this.columntechtype = columntechtype;
         this.libimport = libimport;
+        this.estPK=estPK;
+        this.estFK=estFK;
+        this.tabOriginFk=tabOriginFk;
+        this.colFromOrigin=colFromOrigin;
     }
     public String getNametable() {
         return nametable;
@@ -46,5 +57,31 @@ public class DetailTable
     public void setLibimport(String libimport) {
         this.libimport = libimport;
     }
+    public boolean isEstPK() {
+        return estPK;
+    }
+    public void setEstPK(boolean estPK) {
+        this.estPK = estPK;
+    }
+    public boolean isEstFK() {
+        return estFK;
+    }
+    public void setEstFK(boolean estFK) {
+        this.estFK = estFK;
+    }
+    public String getTabOriginFk() {
+        return tabOriginFk;
+    }
+    public void setTabOriginFk(String tabOriginFk) {
+        this.tabOriginFk = tabOriginFk;
+    }
+    public String getColFromOrigin() {
+        return colFromOrigin;
+    }
+    public void setColFromOrigin(String colFromOrigin) {
+        this.colFromOrigin = colFromOrigin;
+    }
+
+    
     
 }

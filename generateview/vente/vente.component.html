@@ -1,0 +1,126 @@
+<section>
+    <h1>vente</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #venteForm="ngForm" (ngSubmit)="submitFormCreate(venteForm)" >
+            <h2>Save vente</h2>
+
+            <input type="hidden" id="idvente" name="idvente" [value]="0" ngModel/><br> 
+            <label for="categorie">Categorie:<br>
+                <select id="categorie" name="idcategorie" ngModel required >
+                        <option *ngFor="let categorie of categories" [value]="categorie.idcategorie">{{ categorie.nomcategorie}}</option>
+                </select>
+            </label><br>
+            <label for="style">Style:<br>
+                <select id="style" name="idstyle" ngModel required >
+                        <option *ngFor="let style of styles" [value]="style.idstyle">{{ style.nomstyle}}</option>
+                </select>
+            </label><br>
+            <label for="taille">Taille:<br>
+                <select id="taille" name="idtaille" ngModel required >
+                        <option *ngFor="let taille of tailles" [value]="taille.idtaille">{{ taille.nomtaille}}</option>
+                </select>
+            </label><br>
+            <label for="client">Client:<br>
+                <select id="client" name="idclient" ngModel required >
+                        <option *ngFor="let client of clients" [value]="client.idclient">{{ client.nomclient}}</option>
+                </select>
+            </label><br>
+            <label for="quantite">Quantite: </label><br>
+            <input type="text" id="quantite" name="quantite" ngModel/>
+            <br>
+            <label for="datevente">Datevente: </label><br>
+            <input type="datetime-local" id="datevente" name="datevente" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="vente" (ngSubmit)="submitFormUpdate()">
+            <h2>Update vente</h2>
+
+            <input type="hidden" id="idvente" name="idvente" [(ngModel)]="vente.idvente"><br> 
+            <label for="categorie">Categorie:<br>
+                <select id="categorie" name="idcategorie" [(ngModel)]="vente.idcategorie" required >
+                        <option *ngFor="let categorie of categories" [value]="categorie.idcategorie">{{ categorie.nomcategorie}}</option>
+                </select>
+            </label><br>
+            <label for="style">Style:<br>
+                <select id="style" name="idstyle" [(ngModel)]="vente.idstyle" required >
+                        <option *ngFor="let style of styles" [value]="style.idstyle">{{ style.nomstyle}}</option>
+                </select>
+            </label><br>
+            <label for="taille">Taille:<br>
+                <select id="taille" name="idtaille" [(ngModel)]="vente.idtaille" required >
+                        <option *ngFor="let taille of tailles" [value]="taille.idtaille">{{ taille.nomtaille}}</option>
+                </select>
+            </label><br>
+            <label for="client">Client:<br>
+                <select id="client" name="idclient" [(ngModel)]="vente.idclient" required >
+                        <option *ngFor="let client of clients" [value]="client.idclient">{{ client.nomclient}}</option>
+                </select>
+            </label><br>
+            <label for="quantite">Quantite: </label><br>
+            <input type="text" id="quantite" [(ngModel)]="vente.quantite" name="quantite" />
+            <br>
+            <label for="datevente">Datevente: </label><br>
+            <input type="datetime-local" id="datevente" [(ngModel)]="vente.datevente" name="datevente" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste vente </h2>
+                    <tr>
+                        <th>idvente</th>
+                        <th>idcategorie</th>
+                        <th>nomcategorie</th>
+                        <th>idstyle</th>
+                        <th>nomstyle</th>
+                        <th>idtaille</th>
+                        <th>nomtaille</th>
+                        <th>idclient</th>
+                        <th>nomclient</th>
+                        <th>genre</th>
+                        <th>nee</th>
+                        <th>quantite</th>
+                        <th>datevente</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vente of ventes">
+                        <td>{{vente.idvente}}</td>
+                        <td>{{vente.idcategorie}}</td>
+                        <td>{{vente.nomcategorie}}</td>
+                        <td>{{vente.idstyle}}</td>
+                        <td>{{vente.nomstyle}}</td>
+                        <td>{{vente.idtaille}}</td>
+                        <td>{{vente.nomtaille}}</td>
+                        <td>{{vente.idclient}}</td>
+                        <td>{{vente.nomclient}}</td>
+                        <td>{{vente.genre}}</td>
+                        <td>{{vente.nee}}</td>
+                        <td>{{vente.quantite}}</td>
+                        <td>{{vente.datevente}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(vente.idvente)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(vente.idvente)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

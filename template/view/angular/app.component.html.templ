@@ -1,0 +1,20 @@
+<nav>
+    <img src="" alt="logo" class="rounded-logo" >
+
+    <a  (click)="clickmenu(0)" >CRUD</a>
+        <ul [ngClass]="{'active-menu': activemenu[0]}"  class="menu-mere">
+<<li-temple>>            <li><a href="<<pagename>>"><<Entityname>></a></li><</li-temple>>          
+        </ul>
+</nav>
+
+<header>
+    <ul>
+        <li><a href="/acceuil">Acceuil</a></li>
+    </ul>
+</header>
+
+<router-outlet />
+
+    <footer>
+        <p>&copy; 2024 S5 . Tous droits réservés.</p>
+    </footer>

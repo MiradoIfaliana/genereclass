@@ -1,0 +1,80 @@
+<section>
+    <h1>matierestyle</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #matierestyleForm="ngForm" (ngSubmit)="submitFormCreate(matierestyleForm)" >
+            <h2>Save matierestyle</h2>
+
+            <input type="hidden" id="idmatierestyle" name="idmatierestyle" [value]="0" ngModel/><br> 
+            <label for="matiere">Matiere:<br>
+                <select id="matiere" name="idmatiere" ngModel required >
+                        <option *ngFor="let matiere of matieres" [value]="matiere.idmatiere">{{ matiere.nommatiere}}</option>
+                </select>
+            </label><br>
+            <label for="style">Style:<br>
+                <select id="style" name="idstyle" ngModel required >
+                        <option *ngFor="let style of styles" [value]="style.idstyle">{{ style.nomstyle}}</option>
+                </select>
+            </label><br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="matierestyle" (ngSubmit)="submitFormUpdate()">
+            <h2>Update matierestyle</h2>
+
+            <input type="hidden" id="idmatierestyle" name="idmatierestyle" [(ngModel)]="matierestyle.idmatierestyle"><br> 
+            <label for="matiere">Matiere:<br>
+                <select id="matiere" name="idmatiere" [(ngModel)]="matierestyle.idmatiere" required >
+                        <option *ngFor="let matiere of matieres" [value]="matiere.idmatiere">{{ matiere.nommatiere}}</option>
+                </select>
+            </label><br>
+            <label for="style">Style:<br>
+                <select id="style" name="idstyle" [(ngModel)]="matierestyle.idstyle" required >
+                        <option *ngFor="let style of styles" [value]="style.idstyle">{{ style.nomstyle}}</option>
+                </select>
+            </label><br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste matierestyle </h2>
+                    <tr>
+                        <th>idmatierestyle</th>
+                        <th>idmatiere</th>
+                        <th>nommatiere</th>
+                        <th>idunite</th>
+                        <th>idstyle</th>
+                        <th>nomstyle</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let matierestyle of matierestyles">
+                        <td>{{matierestyle.idmatierestyle}}</td>
+                        <td>{{matierestyle.idmatiere}}</td>
+                        <td>{{matierestyle.nommatiere}}</td>
+                        <td>{{matierestyle.idunite}}</td>
+                        <td>{{matierestyle.idstyle}}</td>
+                        <td>{{matierestyle.nomstyle}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(matierestyle.idmatierestyle)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(matierestyle.idmatierestyle)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

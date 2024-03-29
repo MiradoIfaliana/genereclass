@@ -1,0 +1,66 @@
+<section>
+    <h1>origintab</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #origintabForm="ngForm" (ngSubmit)="submitFormCreate(origintabForm)" >
+            <h2>Save origintab</h2>
+
+            <input type="hidden" id="id" name="id" [value]="0" ngModel/><br> 
+            <label for="nom">Nom: </label><br>
+            <input type="text" id="nom" name="nom" ngModel/>
+            <br>
+            <label for="nee">Nee: </label><br>
+            <input type="datetime-local" id="nee" name="nee" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="origintab" (ngSubmit)="submitFormUpdate()">
+            <h2>Update origintab</h2>
+
+            <input type="hidden" id="id" name="id" [(ngModel)]="origintab.id"><br> 
+            <label for="nom">Nom: </label><br>
+            <input type="text" id="nom" [(ngModel)]="origintab.nom" name="nom" />
+            <br>
+            <label for="nee">Nee: </label><br>
+            <input type="datetime-local" id="nee" [(ngModel)]="origintab.nee" name="nee" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste origintab </h2>
+                    <tr>
+                        <th>id</th>
+                        <th>nom</th>
+                        <th>nee</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let origintab of origintabs">
+                        <td>{{origintab.id}}</td>
+                        <td>{{origintab.nom}}</td>
+                        <td>{{origintab.nee}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(origintab.id)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(origintab.id)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

@@ -1,0 +1,108 @@
+<section>
+    <h1>fabrication</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #fabricationForm="ngForm" (ngSubmit)="submitFormCreate(fabricationForm)" >
+            <h2>Save fabrication</h2>
+
+            <input type="hidden" id="idfabrication" name="idfabrication" [value]="0" ngModel/><br> 
+            <label for="categorie">Categorie:<br>
+                <select id="categorie" name="idcategorie" ngModel required >
+                        <option *ngFor="let categorie of categories" [value]="categorie.idcategorie">{{ categorie.nomcategorie}}</option>
+                </select>
+            </label><br>
+            <label for="quantitefab">Quantitefab: </label><br>
+            <input type="text" id="quantitefab" name="quantitefab" ngModel/>
+            <br>
+            <label for="datefab">Datefab: </label><br>
+            <input type="datetime-local" id="datefab" name="datefab" ngModel/>
+            <br>
+            <label for="taille">Taille:<br>
+                <select id="taille" name="idtaille" ngModel required >
+                        <option *ngFor="let taille of tailles" [value]="taille.idtaille">{{ taille.nomtaille}}</option>
+                </select>
+            </label><br>
+            <label for="style">Style:<br>
+                <select id="style" name="idstyle" ngModel required >
+                        <option *ngFor="let style of styles" [value]="style.idstyle">{{ style.nomstyle}}</option>
+                </select>
+            </label><br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="fabrication" (ngSubmit)="submitFormUpdate()">
+            <h2>Update fabrication</h2>
+
+            <input type="hidden" id="idfabrication" name="idfabrication" [(ngModel)]="fabrication.idfabrication"><br> 
+            <label for="categorie">Categorie:<br>
+                <select id="categorie" name="idcategorie" [(ngModel)]="fabrication.idcategorie" required >
+                        <option *ngFor="let categorie of categories" [value]="categorie.idcategorie">{{ categorie.nomcategorie}}</option>
+                </select>
+            </label><br>
+            <label for="quantitefab">Quantitefab: </label><br>
+            <input type="text" id="quantitefab" [(ngModel)]="fabrication.quantitefab" name="quantitefab" />
+            <br>
+            <label for="datefab">Datefab: </label><br>
+            <input type="datetime-local" id="datefab" [(ngModel)]="fabrication.datefab" name="datefab" />
+            <br>
+            <label for="taille">Taille:<br>
+                <select id="taille" name="idtaille" [(ngModel)]="fabrication.idtaille" required >
+                        <option *ngFor="let taille of tailles" [value]="taille.idtaille">{{ taille.nomtaille}}</option>
+                </select>
+            </label><br>
+            <label for="style">Style:<br>
+                <select id="style" name="idstyle" [(ngModel)]="fabrication.idstyle" required >
+                        <option *ngFor="let style of styles" [value]="style.idstyle">{{ style.nomstyle}}</option>
+                </select>
+            </label><br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste fabrication </h2>
+                    <tr>
+                        <th>idfabrication</th>
+                        <th>idcategorie</th>
+                        <th>nomcategorie</th>
+                        <th>quantitefab</th>
+                        <th>datefab</th>
+                        <th>idtaille</th>
+                        <th>nomtaille</th>
+                        <th>idstyle</th>
+                        <th>nomstyle</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let fabrication of fabrications">
+                        <td>{{fabrication.idfabrication}}</td>
+                        <td>{{fabrication.idcategorie}}</td>
+                        <td>{{fabrication.nomcategorie}}</td>
+                        <td>{{fabrication.quantitefab}}</td>
+                        <td>{{fabrication.datefab}}</td>
+                        <td>{{fabrication.idtaille}}</td>
+                        <td>{{fabrication.nomtaille}}</td>
+                        <td>{{fabrication.idstyle}}</td>
+                        <td>{{fabrication.nomstyle}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(fabrication.idfabrication)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(fabrication.idfabrication)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

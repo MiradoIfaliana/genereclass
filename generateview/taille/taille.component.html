@@ -1,0 +1,58 @@
+<section>
+    <h1>taille</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #tailleForm="ngForm" (ngSubmit)="submitFormCreate(tailleForm)" >
+            <h2>Save taille</h2>
+
+            <input type="hidden" id="idtaille" name="idtaille" [value]="0" ngModel/><br> 
+            <label for="nomtaille">Nomtaille: </label><br>
+            <input type="text" id="nomtaille" name="nomtaille" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="taille" (ngSubmit)="submitFormUpdate()">
+            <h2>Update taille</h2>
+
+            <input type="hidden" id="idtaille" name="idtaille" [(ngModel)]="taille.idtaille"><br> 
+            <label for="nomtaille">Nomtaille: </label><br>
+            <input type="text" id="nomtaille" [(ngModel)]="taille.nomtaille" name="nomtaille" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste taille </h2>
+                    <tr>
+                        <th>idtaille</th>
+                        <th>nomtaille</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let taille of tailles">
+                        <td>{{taille.idtaille}}</td>
+                        <td>{{taille.nomtaille}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(taille.idtaille)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(taille.idtaille)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

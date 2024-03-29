@@ -1,0 +1,58 @@
+<section>
+    <h1>categorie</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #categorieForm="ngForm" (ngSubmit)="submitFormCreate(categorieForm)" >
+            <h2>Save categorie</h2>
+
+            <input type="hidden" id="idcategorie" name="idcategorie" [value]="0" ngModel/><br> 
+            <label for="nomcategorie">Nomcategorie: </label><br>
+            <input type="text" id="nomcategorie" name="nomcategorie" ngModel/>
+            <br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="categorie" (ngSubmit)="submitFormUpdate()">
+            <h2>Update categorie</h2>
+
+            <input type="hidden" id="idcategorie" name="idcategorie" [(ngModel)]="categorie.idcategorie"><br> 
+            <label for="nomcategorie">Nomcategorie: </label><br>
+            <input type="text" id="nomcategorie" [(ngModel)]="categorie.nomcategorie" name="nomcategorie" />
+            <br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste categorie </h2>
+                    <tr>
+                        <th>idcategorie</th>
+                        <th>nomcategorie</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let categorie of categories">
+                        <td>{{categorie.idcategorie}}</td>
+                        <td>{{categorie.nomcategorie}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(categorie.idcategorie)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(categorie.idcategorie)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>

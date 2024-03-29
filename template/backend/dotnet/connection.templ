@@ -1,0 +1,15 @@
+namespace crudnet.Models;
+using Npgsql;
+public class Connection{
+    public Connection(){}
+    //------------------------------------------------------------------------------------------------------POSTGRESQL
+    public NpgsqlConnection GetConnectionPsql()
+    {
+        string connectionString = "Host=<<host>>;Port=<<port>>;Username=<<dbusername>>;Password=<<password>>;Database=<<databasename>>";
+        NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+        connection.Open();
+        return connection;
+    }
+}
+
+//dotnet add package Npgsql

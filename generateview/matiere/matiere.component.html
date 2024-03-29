@@ -1,0 +1,74 @@
+<section>
+    <h1>matiere</h1>
+    <button class="bt-crud" (click)="popopSave()">CREATE</button>
+    
+    <button class="bt-crud" (click)="popopListe()">LISTE</button>
+
+    <div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
+        <form  #matiereForm="ngForm" (ngSubmit)="submitFormCreate(matiereForm)" >
+            <h2>Save matiere</h2>
+
+            <input type="hidden" id="idmatiere" name="idmatiere" [value]="0" ngModel/><br> 
+            <label for="nommatiere">Nommatiere: </label><br>
+            <input type="text" id="nommatiere" name="nommatiere" ngModel/>
+            <br>
+            <label for="unite">Unite:<br>
+                <select id="unite" name="idunite" ngModel required >
+                        <option *ngFor="let unite of unites" [value]="unite.idunite">{{ unite.nomunite}}</option>
+                </select>
+            </label><br>
+
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-update" [ngClass]="{'active': popoActiveUpdate}" >
+        <form  *ngIf="matiere" (ngSubmit)="submitFormUpdate()">
+            <h2>Update matiere</h2>
+
+            <input type="hidden" id="idmatiere" name="idmatiere" [(ngModel)]="matiere.idmatiere"><br> 
+            <label for="nommatiere">Nommatiere: </label><br>
+            <input type="text" id="nommatiere" [(ngModel)]="matiere.nommatiere" name="nommatiere" />
+            <br>
+            <label for="unite">Unite:<br>
+                <select id="unite" name="idunite" [(ngModel)]="matiere.idunite" required >
+                        <option *ngFor="let unite of unites" [value]="unite.idunite">{{ unite.nomunite}}</option>
+                </select>
+            </label><br>
+
+            
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="custom-popo-liste" [ngClass]="{'active': popoActiveListe}" >     
+            <table>
+                
+                <thead>
+                    <h2>Liste matiere </h2>
+                    <tr>
+                        <th>idmatiere</th>
+                        <th>nommatiere</th>
+                        <th>idunite</th>
+                        <th>nomunite</th>
+                        <th>unite</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let matiere of matieres">
+                        <td>{{matiere.idmatiere}}</td>
+                        <td>{{matiere.nommatiere}}</td>
+                        <td>{{matiere.idunite}}</td>
+                        <td>{{matiere.nomunite}}</td>
+                        <td>{{matiere.unite}}</td>
+
+                        <td class="td-ud"><button class="bt-crud" class="bt-up" (click)="popopUpdate(matiere.idmatiere)">UPDATE</button></td>
+                        <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(matiere.idmatiere)">DELETE</button></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+          
+</section>
