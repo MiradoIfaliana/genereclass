@@ -130,7 +130,7 @@ public class GenereClass
                 nameAndLib[0] = "string";
                 break;
             case Types.DATE:
-                nameAndLib[0] = "DateOnly";
+                nameAndLib[0] = "DateTime";
                 nameAndLib[1] = "System";
                 break;
             case Types.TIME:

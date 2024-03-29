@@ -175,6 +175,7 @@ public class GenereController
             //try
             setresponseTmplt=getStringIn(create, "<responsetry>", "</responsetry>");
             setreponse+=setresponseTmplt.replaceAll("<keyrep>","status" ).replaceAll("<valueresponse>", detailController.getStatussucces());
+            setreponse+="\n"+setresponseTmplt.replaceAll("<keyrep>","message" ).replaceAll("<valueresponse>", "\"succes\"");
             index=getIndexOfContenu(create, "<responsetry>", "</responsetry>");
             if(index[0]>=0 && index[1]>=0){
                 create=create.substring(0,index[0])+setreponse+create.substring(index[1], create.length());
@@ -196,6 +197,7 @@ public class GenereController
             setresponseTmplt=getStringIn(read, "<responsetry>", "</responsetry>");
             setreponse+=setresponseTmplt.replaceAll("<keyrep>","status" ).replaceAll("<valueresponse>", detailController.getStatussucces());
             setreponse+="\n"+setresponseTmplt.replaceAll("<keyrep>","data" ).replaceAll("<valueresponse>", classLower+"."+detailController.getMethodread());
+            setreponse+="\n"+setresponseTmplt.replaceAll("<keyrep>","message" ).replaceAll("<valueresponse>", "\"ok\"");
             index=getIndexOfContenu(read, "<responsetry>", "</responsetry>");
             if(index[0]>=0 && index[1]>=0){
                 read=read.substring(0,index[0])+setreponse+read.substring(index[1], read.length());
@@ -220,6 +222,7 @@ public class GenereController
             setresponseTmplt=getStringIn(readdetailed, "<responsetry>", "</responsetry>");
             setreponse+=setresponseTmplt.replaceAll("<keyrep>","status" ).replaceAll("<valueresponse>", detailController.getStatussucces());
             setreponse+="\n"+setresponseTmplt.replaceAll("<keyrep>","data" ).replaceAll("<valueresponse>", classLower+"."+detailController.getMethodreaddetailed());
+            setreponse+="\n"+setresponseTmplt.replaceAll("<keyrep>","message" ).replaceAll("<valueresponse>", "\"ok\"");
             index=getIndexOfContenu(readdetailed, "<responsetry>", "</responsetry>");
             if(index[0]>=0 && index[1]>=0){
                 readdetailed=readdetailed.substring(0,index[0])+setreponse+readdetailed.substring(index[1], readdetailed.length());
@@ -241,6 +244,7 @@ public class GenereController
             setresponseTmplt=getStringIn(readById, "<responsetry>", "</responsetry>");
             setreponse+=setresponseTmplt.replaceAll("<keyrep>","status" ).replaceAll("<valueresponse>", detailController.getStatussucces());
             setreponse+="\n"+setresponseTmplt.replaceAll("<keyrep>","data" ).replaceAll("<valueresponse>", classLower+"."+detailController.getMethodreadbyid());
+            setreponse+="\n"+setresponseTmplt.replaceAll("<keyrep>","message" ).replaceAll("<valueresponse>", "\"ok\"");
             index=getIndexOfContenu(readById, "<responsetry>", "</responsetry>");
             if(index[0]>=0 && index[1]>=0){
                 readById=readById.substring(0,index[0])+setreponse+readById.substring(index[1], readById.length());
@@ -262,6 +266,7 @@ public class GenereController
             setreponse="";
             setresponseTmplt=getStringIn(update, "<responsetry>", "</responsetry>");
             setreponse+=setresponseTmplt.replaceAll("<keyrep>","status" ).replaceAll("<valueresponse>", detailController.getStatussucces());
+            setreponse+="\n"+setresponseTmplt.replaceAll("<keyrep>","message" ).replaceAll("<valueresponse>", "\"succes\"");
             index=getIndexOfContenu(update, "<responsetry>", "</responsetry>");
             if(index[0]>=0 && index[1]>=0){
                 update=update.substring(0,index[0])+setreponse+update.substring(index[1], update.length());
@@ -282,6 +287,7 @@ public class GenereController
             setreponse="";
             setresponseTmplt=getStringIn(delete, "<responsetry>", "</responsetry>");
             setreponse+=setresponseTmplt.replaceAll("<keyrep>","status" ).replaceAll("<valueresponse>", detailController.getStatussucces());
+            setreponse+="\n"+setresponseTmplt.replaceAll("<keyrep>","message" ).replaceAll("<valueresponse>", "\"succes\"");
             index=getIndexOfContenu(delete, "<responsetry>", "</responsetry>");
             if(index[0]>=0 && index[1]>=0){
                 delete=delete.substring(0,index[0])+setreponse+delete.substring(index[1], delete.length());

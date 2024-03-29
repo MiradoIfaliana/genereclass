@@ -29,6 +29,7 @@ export class <<Pagename>>Component {
     },
       (error) => {
         console.error('Une erreur s\'est produite : ', error);
+        alert("error");
       }
     );
   }
@@ -38,6 +39,7 @@ export class <<Pagename>>Component {
       this.<<sousentityname>>s=response.data;
     },
       (error) => {
+        alert("error");
         console.error('Une erreur s\'est produite : ', error);
       }
     );
@@ -55,12 +57,14 @@ export class <<Pagename>>Component {
   submitFormCreate(<<entityname>>Form: NgForm) {
     if(<<entityname>>Form.valid){
       const <<entityname>>=<<entityname>>Form.value;
-      console.log(<<entityname>>);
+      //console.log(<<entityname>>);
       // Envoi de la requête POST
-      this.http.post('#endpointcreate#', <<entityname>>).subscribe((response) => {
-        console.log(response);
+      this.http.post('#endpointcreate#', <<entityname>>).subscribe((response :any) => {
+        //console.log(response);
+        alert(response.message);
       },
         (error) => {
+          alert("error");
           console.error('Une erreur s\'est produite : ', error);
         }
       );
@@ -71,21 +75,24 @@ export class <<Pagename>>Component {
   submitFormUpdate(id: number) {
     console.log(this.<<entityname>>);
     // Envoi de la requête POST
-    this.http.put('#endpointupdate#'+id, this.<<entityname>>).subscribe((response) => {
-      console.log(response);
+    this.http.put('#endpointupdate#'+id, this.<<entityname>>).subscribe((response :any) => {
+      //console.log(response);
+      alert(response.message);
     },
       (error) => {
+        alert("error");
         console.error('Une erreur s\'est produite : ', error);
       }
     );
   }
   //DELETE
   delete(id: number) {
-    alert(id);
-    this.http.delete('#endpointdelete#'+id).subscribe((response) => {
-      console.log(response);
+    this.http.delete('#endpointdelete#'+id).subscribe((response:any) => {
+      //console.log(response);
+      alert(response.message);
     },
       (error) => {
+        alert("error");
         console.error('Une erreur s\'est produite : ', error);
       }
     );
