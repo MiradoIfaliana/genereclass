@@ -15,6 +15,7 @@ export class <<Pagename>>Component {
   popoActiveListe: boolean =false;
   <<entityname>>s:any;
   <<entityname>>:any;
+  <<entityname>>create={<<fieldtemple>><<field>>:<<value>><</fieldtemple>>};
 <<instance-sousentityname>>  <<sousentityname>>s:any;<</instance-sousentityname>>
   constructor(private http: HttpClient) {
     this.set<<Entityname>>s();
@@ -54,21 +55,18 @@ export class <<Pagename>>Component {
     }
   }
   //CREATE
-  submitFormCreate(<<entityname>>Form: NgForm) {
-    if(<<entityname>>Form.valid){
-      const <<entityname>>=<<entityname>>Form.value;
-      //console.log(<<entityname>>);
-      // Envoi de la requête POST
-      this.http.post('#endpointcreate#', <<entityname>>).subscribe((response :any) => {
-        //console.log(response);
-        alert(response.message);
-      },
-        (error) => {
-          alert("error");
-          console.error('Une erreur s\'est produite : ', error);
-        }
-      );
-    }
+  submitFormCreate() {
+    console.log(this.<<entityname>>create);
+    // Envoi de la requête POST                                   
+    this.http.post('#endpointcreate#', this.<<entityname>>create).subscribe((response :any) => {
+      //console.log(response);
+      alert(response.message);
+    },
+      (error) => {
+        alert("error");
+        console.error('Une erreur s\'est produite : ', error);
+      }
+    );
   }
 
   //UPDATE

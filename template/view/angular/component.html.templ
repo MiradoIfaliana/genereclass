@@ -5,19 +5,19 @@
     <button class="bt-crud" (click)="popopListe()">LISTE</button>
 
     <<saveForm>><div class="custom-popo-save" [ngClass]="{'active': popoActiveSave}" >
-        <form  #<<entityname>>Form="ngForm" (ngSubmit)="submitFormCreate(<<entityname>>Form)" >
+        <form  *ngIf="<<entityname>>create" (ngSubmit)="submitFormCreate()" >
             <h2>Save <<entityname>></h2>
 
-<<inputs>><<pkchamp>>            <input type="<<typepk>>" id="<<a_namepk>>" name="<<a_namepk>>" [value]="<<valuepk>>" ngModel/><br> <</pkchamp>>
+<<inputs>><<pkchamp>>            <input type="<<typepk>>" id="<<a_namepk>>" name="<<a_namepk>>" [(ngModel)]="<<entityname>>create.<<a_namepk>>"><br> <</pkchamp>>
 
 <<selecttempl>>            <label for="<<namelabel>>"><<Namelabel>>:<br>
-                <select id="<<namelabel>>" name="<<name-select>>" ngModel required >
+                <select id="<<namelabel>>" name="<<name-select>>" [(ngModel)]="<<entityname>>create.<<field-entity>>" required >
                         <<optiontempl>><option *ngFor="let <<data-select>> of <<data-select>>s" [value]="<<data-select>>.<<field-value-option>>">{{ <<data-select>>.<<label-option>>}}</option><</optiontempl>>
                 </select>
             </label><br><</selecttempl>>
 
 <<inputtempl>>            <label for="<<namelabel>>"><<Namelabel>>: </label><br>
-            <input type="<<typeinput>>" id="<<namelabel>>" name="<<name-input>>" ngModel/>
+            <input type="<<typeinput>>" id="<<namelabel>>" [(ngModel)]="<<entityname>>create.<<name-input>>" name="<<name-input>>" />
             <br><</inputtempl>><</inputs>>
 
             <button type="submit">Valider</button>

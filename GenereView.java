@@ -331,6 +331,7 @@ public class GenereView
         template=template.replaceAll("<<entityname>>", entityname).replaceAll("<<Entityname>>", entitynameUp);
         String pkname=getFirstPkname(tableinfo);
         template=template.replaceAll("<<namepk>>", pkname);
+
         //saveform
         String saveformtemple=getStringIn(template, "<<saveForm>>", "<</saveForm>>");
         String pkchamptempl=getStringIn(saveformtemple, "<<pkchamp>>", "<</pkchamp>>");
@@ -363,18 +364,19 @@ public class GenereView
         //Creer les champs save et update
         for(int i=0;i<lstcl.size();i++){
             coltmp=lstcl.get(i);
+            //<<field>>:<<value>>
+            //<<fieldtemple>><<field>>:<<value>><</fieldtemple>>
             //raha pk,
             if(coltmp.isEstPK()==true){
                 inputscontainssv+=pkchamptempl.replaceAll("<<typepk>>", "hidden").replaceAll("<<valuepk>>", "0").replaceAll("<<a_namepk>>", coltmp.getName())+"\n";
                 inputscontainsup+=pkchamptempl2.replaceAll("<<typepk>>", "hidden").replaceAll("<<a_namepk>>", coltmp.getName())+"\n"; //efa vo remplace tetsy ambony ny entity
                 ////23//System.out.println(inputscontainsup);
             }else if(coltmp.isEstFK()==true){
-                
                 tmpstr=toUpperCaseFirst(coltmp.getTabOriginFk());
                 tableInfoFk=getTableInfo(metaData, coltmp.getTabOriginFk()); //se qu'on affiche comme label sur l'option du selection
                 //save
                 containstmp="";
-                containstmp=selecttemple.replaceAll("<<namelabel>>", coltmp.getTabOriginFk()).replaceAll("<<Namelabel>>", tmpstr).replaceAll("<<name-select>>",coltmp.getName());
+                containstmp=selecttemple.replaceAll("<<namelabel>>", coltmp.getTabOriginFk()).replaceAll("<<Namelabel>>", tmpstr).replaceAll("<<name-select>>",coltmp.getName()).replaceAll("<<field-entity>>", coltmp.getName());
                 containstmp=this.getReplaceInBaliseWithBaliseByStr(containstmp, "<<optiontempl>>","<</optiontempl>>", optiontemple.replaceAll("<<data-select>>",coltmp.getTabOriginFk()).replaceAll("<<field-value-option>>",coltmp.getColFromOrigin()).replaceAll("<<label-option>>", getColonneForLabel(tableInfoFk)));//remplace les contenu du balise ainsi que les balise par l'option
                 inputscontainssv+=containstmp+"\n";
                 //update
@@ -403,7 +405,6 @@ public class GenereView
                 }
             }
         }
-        
         saveformtemple=this.getReplaceInBaliseWithBaliseByStr(saveformtemple, "<<inputs>>", "<</inputs>>", inputscontainssv);
         updateformtemple=this.getReplaceInBaliseWithBaliseByStr(updateformtemple, "<<inputs>>", "<</inputs>>", inputscontainsup);
         
@@ -429,6 +430,11 @@ public class GenereView
         String nametabUp=toUpperCaseFirst(nametable);
         String namepk=getFirstPkname(tableInfo);
 
+        //entitycreate
+        //<<fieldtemple>><<field>>:<<value>><</fieldtemple>>
+        String enttcreatTempl=getStringIn(template, "<<fieldtemple>>", "<</fieldtemple>>");
+        String enttcreatcontains="";
+        
         String templeinstancssentity=getStringIn(template, "<<instance-sousentityname>>", "<</instance-sousentityname>>");
         String instssContains="";
         String templReadsousentity=getStringIn(template, "<<templ-read-sousentity>>", "<</templ-read-sousentity>>");
@@ -473,9 +479,15 @@ public class GenereView
                 instssContains+=templeinstancssentity.replaceAll("<<sousentityname>>",col.getTabOriginFk())+"\n";
                 rdssContains+=templReadsousentity.replaceAll("<<Sousentityname>>",upcaseSs).replaceAll("<<sousentityname>>", col.getTabOriginFk())+"\n";
                 setssContains+=templeSetsousentity.replaceAll("<<Sousentityname>>",upcaseSs)+"\n";
-
+                enttcreatcontains+=enttcreatTempl.replaceAll("<<field>>", col.getName()).replaceAll("<<value>>", "null")+",";
+            }else if(col.isEstPK()==true){
+                enttcreatcontains+=enttcreatTempl.replaceAll("<<field>>", col.getName()).replaceAll("<<value>>", "\'0\'")+",";
+            }else{
+                enttcreatcontains+=enttcreatTempl.replaceAll("<<field>>", col.getName()).replaceAll("<<value>>", "null")+",";
             }
         }
+        enttcreatcontains=deletelastchar(enttcreatcontains, ',');
+        template=this.getReplaceInBaliseWithBaliseByStr(template, "<<fieldtemple>>", "<</fieldtemple>>", enttcreatcontains);
         template=this.getReplaceInBaliseWithBaliseByStr(template,"<<instance-sousentityname>>","<</instance-sousentityname>>", instssContains);
         template=this.getReplaceInBaliseWithBaliseByStr(template,"<<templ-read-sousentity>>","<</templ-read-sousentity>>", rdssContains);
         template=this.getReplaceInBaliseWithBaliseByStr(template,"<<templ-method-setsousentity>>","<</templ-method-setsousentity>>", setssContains);
@@ -547,6 +559,15 @@ public class GenereView
         String p=str+"";
         if(str.isEmpty()==false){
             if(p.substring(p.length()-1).compareTo("/")==0){ 
+                p=p.substring(0,p.length()-1); 
+            }
+        }
+        return p;
+    }
+    public String deletelastchar(String str,char c){
+        String p=str+"";
+        if(str.isEmpty()==false){
+            if(p.substring(p.length()-1).compareTo(String.valueOf(c))==0){ 
                 p=p.substring(0,p.length()-1); 
             }
         }
