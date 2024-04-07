@@ -65,13 +65,16 @@
 
     <readDetailed>
     #annotationGet#
-    public #typeresponse# read<Typeclass>Detailed() #bracketopen# 
+    public #typeresponse# read<Typeclass>Detailed(#requestAttribute# int depart,#requestAttribute# int nbaffiche) #bracketopen# 
         #typegettersconnection# connect= <instancegettersconnection> #endline#
         #typeconnexion# connexion = connect.#methodgettersconnection# #endline#
         #typeresponse# response = <instancetyperesponse> #endline#
         #trykey##bracketopen#
+            if(depart<=0){ depart=1; nbaffiche=0; }
+            if(nbaffiche<=0){ nbaffiche=0; }
             <Typeclass> <typeclass> = <instancetypeclass> #endline#
             #caracteres# query = "<queryreaddetailed>" #endline#
+            query+=" "+"LIMIT "+nbaffiche+" "+"OFFSET "+(depart-1);
 <responsetry>            #setresponse# #endline#</responsetry>
         #bracketclose#
         #catchkey#(#exceptiontype# ex)#bracketopen#

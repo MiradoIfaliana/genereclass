@@ -17,23 +17,51 @@ export class <<Pagename>>Component {
   <<entityname>>:any;
   <<entityname>>create={<<fieldtemple>><<field>>:<<value>><</fieldtemple>>};
 <<instance-sousentityname>>  <<sousentityname>>s:any;<</instance-sousentityname>>
+  depart:number=1;
+  nbaffiche:number=5;
+  doprevnext:boolean =false;
+
   constructor(private http: HttpClient) {
     this.set<<Entityname>>s();
     }
 
 //------------------------------------------------------------------------WEBSERVICE
   //READ---LISTE
-  set<<Entityname>>s(){
-    this.http.get('#endpointreaddetailed#', {}).subscribe((response :any) => {
-      // Gérer la réponse ici
-      this.<<entityname>>s=response.data;
-    },
-      (error) => {
-        console.error('Une erreur s\'est produite : ', error);
-        alert("error");
+  async set<<Entityname>>s() {
+    try {
+      const response: any = await this.http.get('#endpointreaddetailed#?depart=' + this.depart + '&nbaffiche=' + this.nbaffiche, {}).toPromise(); 
+      if (response.data != null) {
+        this.<<entityname>>s=response.data;
+        this.doprevnext = true;
+      } else {
+        this.doprevnext = false;
       }
-    );
+    } catch (error) {
+      console.error('Une erreur s\'est produite : ', error);
+      alert("error");
+    }
   }
+
+  async prev(){
+    this.depart=this.depart-this.nbaffiche;
+    await this.set<<Entityname>>s();
+    if(this.doprevnext==false){ 
+      this.depart=this.depart+this.nbaffiche; //retour a l'etat initial
+      alert("il n'y a plus de precedent");       
+    }
+    this.doprevnext=false;
+  
+  }
+  async next(){
+    this.depart=this.depart+this.nbaffiche;
+    await this.set<<Entityname>>s();
+    if(this.doprevnext==false){ 
+      this.depart=this.depart-this.nbaffiche; //retour a l'etat initial
+      alert("il n'y a plus de suivant"); 
+    }
+    this.doprevnext=false;
+  }
+
   //SOUS-LISTE
 <<templ-read-sousentity>>  set<<Sousentityname>>(){
     this.http.get('#endpointread#', {}).subscribe((response :any) => {

@@ -60,6 +60,10 @@
                         <td class="td-ud"><button class="bt-crud" class="bt-del" (click)="delete(<<entityname>>.<<namepk>>)">DELETE</button></td>
                     </tr>
                 </tbody>
+                <div class="pagination">
+                        <button class="prev-btn" (click)="prev()" >Précédent</button>
+                        <button class="next-btn" (click)="next()">Suivant</button>
+                </div>
             </table>
     </div><</listetable>>
           
