@@ -146,7 +146,6 @@ public class GenereController
         index[0]=contenu.indexOf(balise1);
         index[1]=contenu.indexOf(balise2)+balise2.length();
         return index;
-
     }
     //public String toUpperCaseFirst(String str){ return str.toUpperCase().substring(0,1)+str.substring(1,str.length()); }
     public String getJustCodeCrud(String template,String className,String tablename,String namepk,DetailController detailController,DatabaseMetaData metaData)throws Exception{

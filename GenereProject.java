@@ -74,7 +74,13 @@ public class GenereProject {
    //package //hafa ny fanaovana azy @ c# sy @ java
     String packageclassmodel;
     String packagecontroller;
-
+    
+    public String getPackagecontroller() {
+        return packagecontroller;
+    }
+    public void setPackagecontroller(String packagecontroller) {
+        this.packagecontroller = packagecontroller;
+    }
 
 
     //------------------------

@@ -304,7 +304,6 @@ public class GenereView
         else if(columnInfo.getTypecol().compareToIgnoreCase("LocalDateTime")==0){ return detailView.getTypedatetime(); }
         else if(columnInfo.getTypecol().compareToIgnoreCase("Time")==0){ return detailView.getTypetime(); }
         else { return detailView.getTypetext(); }
-
     }
 
     public List<String> getColumnNamesOfResultQueryDetailed(TableInfo tabinfo,DatabaseMetaData metaData)throws Exception{

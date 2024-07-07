@@ -1,11 +1,14 @@
 package main;
 import java.io.File;
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.swing.text.View;
 
@@ -75,9 +78,23 @@ public class Affiche {
         //gnproject.configByCmd("./config.xml");
         //gnproject.configByXml("./config.xml");
         //gnproject.configByCmdByXml("./config.xml");
-        gnproject.configAndCreate(connection ,"./config.xml");
         
-        //gnproject.afficheFields();
+        gnproject.configAndCreate(connection ,"./config.xml");
+        // Map<String,String> map=new HashMap<String,String>();
+        // map.put("k1","hehe");
+        // map.put("k2","hihi");
+
+        // try{
+        //    String str=map.get("k1");
+        //     System.err.println(str);
+        // }catch(Exception e){ e.printStackTrace(); }
+
+        // try{
+        //     Method m=gnproject.getClass().getDeclaredMethod("setPackagescontroller",String.class);
+        //     System.err.println(m);
+        // }catch(Exception e){ e.printStackTrace(); }
+
+
         connection.close();
 
         
